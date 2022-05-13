@@ -1,81 +1,25 @@
 <template>
   <div class="section section-team text-center">
     <div class="container">
-      <h2 class="title">광주 4반 싸피 팀!</h2>
+      <h2 class="title">싸피 광주 4반 개발자!</h2>
       <div class="team">
         <div class="row">
-          <div class="col-md-4">
+          <div
+            class="col-md-4"
+            v-for="(developer, index) in developers"
+            :key="index"
+          >
             <div class="team-player">
               <img
-                src="img/avatar.jpg"
-                alt="Thumbnail Image"
+                :src="developer.src"
+                :alt="developer.name"
                 class="rounded-circle img-fluid img-raised"
               />
-              <h4 class="title">Romina Hadid</h4>
-              <p class="category text-primary">Model</p>
-              <p class="description">
-                You can write here details about one of your team members. You
-                can give more details about what they do. Feel free to add some
-                <a href="#">links</a> for people to be able to follow them
-                outside the site.
-              </p>
+              <h4 class="title">{{ developer.name }}</h4>
+              <p class="category text-primary">{{ developer.position }}</p>
+              <p class="description">{{ developer.desc }}</p>
               <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-facebook-square"></i
-              ></a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="team-player">
-              <img
-                src="img/ryan.jpg"
-                alt="Thumbnail Image"
-                class="rounded-circle img-fluid img-raised"
-              />
-              <h4 class="title">Ryan Tompson</h4>
-              <p class="category text-primary">Designer</p>
-              <p class="description">
-                You can write here details about one of your team members. You
-                can give more details about what they do. Feel free to add some
-                <a href="#">links</a> for people to be able to follow them
-                outside the site.
-              </p>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-twitter"></i
-              ></a>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-linkedin"></i
-              ></a>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="team-player">
-              <img
-                src="img/eva.jpg"
-                alt="Thumbnail Image"
-                class="rounded-circle img-fluid img-raised"
-              />
-              <h4 class="title">Eva Jenner</h4>
-              <p class="category text-primary">Fashion</p>
-              <p class="description">
-                You can write here details about one of your team members. You
-                can give more details about what they do. Feel free to add some
-                <a href="#">links</a> for people to be able to follow them
-                outside the site.
-              </p>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-google-plus"></i
-              ></a>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-youtube"></i
-              ></a>
-              <a href="#pablo" class="btn btn-primary btn-icon btn-round"
-                ><i class="fab fa-twitter"></i
+                ><i class="fab fa-github"></i
               ></a>
             </div>
           </div>
@@ -86,7 +30,32 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      developers: [
+        {
+          name: "염진호",
+          position: "프론트엔드 개발자",
+          desc: "짱짱맨",
+          src: "img/default-avatar.png",
+        },
+        {
+          name: "이민재",
+          position: "백엔드 개발자",
+          desc: "짱짱맨",
+          src: "img/default-avatar.png",
+        },
+        {
+          name: "홍준표",
+          position: "백엔드 개발자",
+          desc: "짱짱맨",
+          src: "img/default-avatar.png",
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style></style>
