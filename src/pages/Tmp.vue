@@ -152,8 +152,8 @@ import JavascriptComponents from "./components/JavascriptComponents";
 import CarouselSection from "./components/CarouselSection";
 
 export default {
-  name: "index",
-  bodyClass: "index-page",
+  name: "tmp",
+  bodyClass: "tmp-page",
   components: {
     Parallax,
     BasicElements,
