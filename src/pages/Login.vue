@@ -8,40 +8,30 @@
       <div class="container">
         <div class="col-md-5 ml-auto mr-auto">
           <card type="login" plain>
-            <div slot="header" class="logo-container">
-              <img v-lazy="'img/now-logo.png'" alt="" />
+            <img class="n-logo" src="img/ssafy.png" alt="" />
+            <div class="form-group no-border input-lg input-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <i class="now-ui-icons users_circle-08 input-group-text"></i>
+                </div>
+                <input class="form-control" />
+                <div class="input-group-append">
+                  <i class="now-ui-icons users_circle-08 input-group-text"></i>
+                </div>
+              </div>
             </div>
-
-            <fg-input
-              class="no-border input-lg"
-              addon-left-icon="now-ui-icons users_circle-08"
-              placeholder="First Name..."
-            >
-            </fg-input>
-
-            <fg-input
-              class="no-border input-lg"
-              addon-left-icon="now-ui-icons text_caps-small"
-              placeholder="Last Name..."
-            >
-            </fg-input>
 
             <template slot="raw-content">
               <div class="card-footer text-center">
-                <a
-                  href="#pablo"
-                  class="btn btn-primary btn-round btn-lg btn-block"
-                  >Get Started</a
-                >
+                <button class="btn btn-primary btn-round btn-lg btn-block">
+                  Get Started
+                </button>
               </div>
-              <div class="pull-left">
+              <div class="pull-center">
                 <h6>
-                  <a href="#pablo" class="link footer-link">Create Account</a>
-                </h6>
-              </div>
-              <div class="pull-right">
-                <h6>
-                  <a href="#pablo" class="link footer-link">Need Help?</a>
+                  <router-link to="/regist" class="link footer-link"
+                    >Create Account</router-link
+                  >
                 </h6>
               </div>
             </template>
@@ -53,17 +43,16 @@
   </div>
 </template>
 <script>
-import { Card, Button, FormGroupInput } from '@/components';
-import MainFooter from '@/layout/MainFooter';
+import { Card, Button } from "@/components";
+import MainFooter from "@/layout/MainFooter";
 export default {
-  name: 'login-page',
-  bodyClass: 'login-page',
+  name: "login-page",
+  bodyClass: "login-page",
   components: {
     Card,
     MainFooter,
     [Button.name]: Button,
-    [FormGroupInput.name]: FormGroupInput
-  }
+  },
 };
 </script>
 <style></style>
