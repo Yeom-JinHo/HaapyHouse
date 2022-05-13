@@ -8,7 +8,7 @@
       </parallax>
       <div class="container">
         <div class="content-center brand">
-          <img class="n-logo" src="img/now-logo.png" alt="" />
+          <img class="n-logo" src="img/ssafy.png" alt="" />
           <h1 class="h1-seo">HAPPY HOUSE.</h1>
           <h3>최강 광주 4반 최종 관통 프로젝트</h3>
           <h3>우리도 집을 살 수 있을까요?</h3>

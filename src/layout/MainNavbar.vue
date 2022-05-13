@@ -24,7 +24,7 @@
       <li class="nav-item">
         <router-link class="nav-link" to="/main">
           <i class="now-ui-icons location_pin"></i>
-          <p>아파트 살펴보기</p>
+          <p class="inline">아파트 살펴보기</p>
         </router-link>
       </li>
 
@@ -70,4 +70,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+nav {
+  font-size: 1.5em;
+}
+</style>

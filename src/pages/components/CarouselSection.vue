@@ -1,9 +1,9 @@
 <template>
   <div class="section" id="carousel">
     <div class="container">
-      <div class="title">
+      <div class="title text-center">
         <h3>SSAFY 캠퍼스 근처 아파트 보기</h3>
-        <h5>
+        <h5 class="text-primary text-center">
           캠퍼스 이미지를 클릭하면 캠퍼스 근처 아파트 거래 현황조회가
           가능합니다.
         </h5>
