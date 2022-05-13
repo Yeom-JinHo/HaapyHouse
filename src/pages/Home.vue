@@ -10,8 +10,22 @@
         <div class="content-center brand" id="home-info">
           <img class="n-logo" src="img/ssafy.png" alt="" />
           <h1 class="h1">HAPPY HOUSE.</h1>
-          <h2>최강 광주 4반 최종 관통 프로젝트</h2>
-          <h2>우리도 집을 살 수 있을까요?</h2>
+          <vue-typer
+            :text="[
+              '최강 광주 4반 최종 관통 프로젝트',
+              '우리도 집을 살 수 있을까요?',
+            ]"
+            :repeat="0"
+            :shuffle="false"
+            initial-action="typing"
+            :pre-type-delay="70"
+            :type-delay="70"
+            :pre-erase-delay="2000"
+            :erase-delay="250"
+            erase-style="select-all"
+            :erase-on-complete="false"
+            caret-animation="solid"
+          ></vue-typer>
         </div>
         <h6 class="category category-absolute">
           Designed by
@@ -45,4 +59,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.vue-typer .custom.char {
+  color: white;
+  font-size: 3em;
+}
+</style>
