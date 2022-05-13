@@ -22,32 +22,27 @@
     </template>
     <template slot="navbar-menu">
       <li class="nav-item">
-        <a
-          class="nav-link"
-          href="https://www.creative-tim.com/product/vue-now-ui-kit"
-          target="_blank"
-        >
-          <i class="now-ui-icons users_circle-08"></i>
-          <p>로그인</p>
-        </a>
+        <router-link class="nav-link" to="/main">
+          <i class="now-ui-icons location_pin"></i>
+          <p>아파트 살펴보기</p>
+        </router-link>
       </li>
+
       <li class="nav-item">
-        <nav-link to="/login">
+        <router-link class="nav-link" to="/login">
           <i class="now-ui-icons users_circle-08"></i>
           <p>로그인</p>
-        </nav-link>
+        </router-link>
       </li>
+
       <drop-down
         tag="li"
-        title="Examples"
+        title="유저정보"
         icon="now-ui-icons design_image"
         class="nav-item"
       >
-        <nav-link to="/landing">
+        <nav-link to="/logout">
           <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link>
-        <nav-link to="/login">
-          <i class="now-ui-icons users_circle-08"></i> Login
         </nav-link>
         <nav-link to="/profile">
           <i class="now-ui-icons users_single-02"></i> Profile

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
+import Home from "./pages/Home.vue";
 import Tmp from "./pages/Tmp.vue";
-import Landing from "./pages/Landing.vue";
 import Login from "./pages/Login.vue";
 import Profile from "./pages/Profile.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
@@ -13,18 +13,18 @@ export default new Router({
   linkExactActiveClass: "active",
   routes: [
     {
-      path: "/tmp",
-      name: "tmp",
-      components: { default: Tmp, header: MainNavbar, footer: MainFooter },
+      path: "/",
+      name: "home",
+      components: { default: Home, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
       },
     },
     {
-      path: "/landing",
-      name: "landing",
-      components: { default: Landing, header: MainNavbar, footer: MainFooter },
+      path: "/tmp",
+      name: "tmp",
+      components: { default: Tmp, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
