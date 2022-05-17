@@ -35,17 +35,23 @@
         </router-link>
       </li>
 
+      <li class="nav-item">
+        <router-link class="nav-link" to="/join">
+          <i class="now-ui-icons objects_spaceship"></i>
+          <p>회원가입</p>
+        </router-link>
+      </li>
+
       <drop-down
         tag="li"
-        title="유저정보"
-        icon="now-ui-icons design_image"
+        title="내정보"
+        icon="now-ui-icons users_single-02"
         class="nav-item"
       >
-        <nav-link to="/logout">
-          <i class="now-ui-icons education_paper"></i> Landing
-        </nav-link>
+        <button @click="logout" class="dropdown-item">로그아웃</button>
         <nav-link to="/profile">
-          <i class="now-ui-icons users_single-02"></i> Profile
+          <i class="now-ui-icons users_single-02"></i>
+          프로필
         </nav-link>
       </drop-down>
     </template>
@@ -55,6 +61,7 @@
 <script>
 import { DropDown, Navbar, NavLink } from "@/components";
 import { Popover } from "element-ui";
+
 export default {
   name: "main-navbar",
   props: {
@@ -66,6 +73,11 @@ export default {
     Navbar,
     NavLink,
     [Popover.name]: Popover,
+  },
+  methods: {
+    logout() {
+      alert("로그아웃하시겠습니까?");
+    },
   },
 };
 </script>
