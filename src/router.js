@@ -4,6 +4,8 @@ import Home from "./pages/Home.vue";
 import Tmp from "./pages/Tmp.vue";
 import Login from "./pages/Login.vue";
 import Profile from "./pages/Profile.vue";
+import Main from "./pages/Main.vue";
+import Join from "./pages/Join.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
 
@@ -45,6 +47,23 @@ export default new Router({
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
+      },
+    },
+    {
+      path: "/main",
+      name: "main",
+      components: { default: Main, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" },
+      },
+    },
+    {
+      path: "/join",
+      name: "join",
+      components: { default: Join, header: MainNavbar },
+      props: {
+        header: { colorOnScroll: 400 },
       },
     },
   ],
