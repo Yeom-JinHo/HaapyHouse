@@ -41,6 +41,7 @@
         </h6>
       </div>
     </div>
+    <ranking></ranking>
     <carousel-section></carousel-section>
     <team-info />
   </div>
@@ -49,6 +50,7 @@
 import { Parallax } from "@/components";
 import CarouselSection from "./components/CarouselSection";
 import TeamInfo from "./components/TeamInfo";
+import Ranking from "./components/Ranking";
 export default {
   name: "index",
   bodyClass: "index-page",
@@ -56,6 +58,7 @@ export default {
     Parallax,
     CarouselSection,
     TeamInfo,
+    Ranking,
   },
 };
 </script>
