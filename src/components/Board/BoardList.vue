@@ -1,8 +1,25 @@
 <template>
   <div class="container">
-    <router-link class="pull-right regist-btn" to="/board/regist"
-      >글쓰기</router-link
-    >
+    <div class="list-header">
+      <div class="search-bar">
+        <select v-model="searchType" name="search-type" id="search-type">
+          <option :value="null">검색옵션</option>
+          <option value="id">작성자</option>
+          <option value="title">제목</option>
+        </select>
+        <input
+          v-model="searchVal"
+          class="search-input"
+          type="text"
+          placeholder="검색어를 입력하세요.."
+        />
+        <button @click="search" id="btn--search" class="btn btn-simple">
+          검색
+        </button>
+      </div>
+      <router-link class="regist-btn" to="/board/regist">글쓰기</router-link>
+    </div>
+
     <div class="table-container">
       <table class="table">
         <thead>
@@ -28,6 +45,7 @@
 import boardApi from "@/apis/boardApi.js";
 import Pagination from "@/components/Pagination.vue";
 import BoardListItem from "@/components/Board/BoardListItem.vue";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Pagination,
@@ -38,6 +56,8 @@ export default {
       boards: [],
       nowPage: 1,
       defaultPerPage: 10,
+      searchType: null,
+      searchVal: "",
     };
   },
   computed: {
@@ -52,38 +72,96 @@ export default {
     },
   },
   async created() {
-    this.showInfoMsg();
+    // this.showInfoMsg();
     try {
-      const res = await boardApi.get();
-      this.boards = res.data.reverse();
+      this.search();
     } catch (e) {
       console.log(e);
     }
   },
   methods: {
-    showInfoMsg() {
-      if (this.boards.length == 0) {
-        this.$store.commit("SET_INFO_MSG", {
-          visible: true,
-          msg: "글이 하나도 없어요!!",
-        });
-      } else {
-        this.$store.commit("SET_INFO_MSG", {
-          visible: false,
-          msg: "",
-        });
+    ...mapMutations([
+      "SET_WARNING_MSG",
+      "SET_INFO_MSG",
+      "SET_SUCCESS_MSG",
+      "SET_DANGER_MSG",
+      "CLEAR_ALL_MSG",
+    ]),
+    async search() {
+      console.log(this.searchType, this.searchVal);
+      this.CLEAR_ALL_MSG();
+      let params = "";
+      if (this.searchVal.length == 0) {
+        if (this.searchType != null) {
+          this.SET_WARNING_MSG({ visible: true, msg: "검색어를 입력해주세요" });
+          return;
+        }
+      } else if (this.searchType != null) {
+        params = this.searchType == "id" ? "/?id=" : "/?title=";
+        params += this.searchVal;
       }
-    },
-  },
-  watch: {
-    boards: function () {
-      this.showInfoMsg();
+      try {
+        const res = await boardApi.get(params);
+        console.log(res);
+        if (res.status == 200) {
+          this.boards = res.data.reverse();
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: `검색결과가 ${this.boards.length}건 있어요!`,
+          });
+        } else if (res.status == 204) {
+          this.boards = [];
+          this.SET_INFO_MSG({
+            visible: true,
+            msg: "검색결과가 존재하지 않습니다.",
+          });
+        } else {
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "글을 조회하는데 실패하였습니다.",
+          });
+        }
+      } catch (e) {}
     },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+#btn--search {
+  height: 2rem;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  color: #f96332;
+  border: 1px solid #f96332;
+  margin-left: 10px;
+}
+
+#btn--search:hover {
+  color: white;
+  background-color: #f96332;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  a {
+    margin: 0;
+  }
+  .search-bar {
+    display: flex;
+    align-items: center;
+    .search-input,
+    #search-type {
+      height: 2rem;
+      font-size: 1.25rem;
+      margin-left: 5px;
+    }
+  }
+}
 .pagination {
   justify-content: center;
 }
