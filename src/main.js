@@ -34,9 +34,6 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach(function (to, from, next) {
-  store.commit("SET_SUCCESS_MSG", { visible: false });
-  store.commit("SET_WARNING_MSG", { visible: false });
-  store.commit("SET_INFO_MSG", { visible: false });
-  store.commit("SET_DANGER_MSG", { visible: false });
+  store.commit("CLEAR_ALL_MSG");
   next();
 });

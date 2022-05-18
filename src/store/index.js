@@ -66,6 +66,16 @@ export default new Vuex.Store({
       Vue.set(state.dangerMsg, "visible", visible);
       Vue.set(state.dangerMsg, "content", msg || "");
     },
+    CLEAR_ALL_MSG(state) {
+      Vue.set(state.successMsg, "visible", false);
+      Vue.set(state.successMsg, "content", "");
+      Vue.set(state.infoMsg, "visible", false);
+      Vue.set(state.infoMsg, "content", "");
+      Vue.set(state.warningMsg, "visible", false);
+      Vue.set(state.warningMsg, "content", "");
+      Vue.set(state.dangerMsg, "visible", false);
+      Vue.set(state.dangerMsg, "content", "");
+    },
   },
   actions: {},
   modules: {},
