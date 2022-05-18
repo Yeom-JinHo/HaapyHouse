@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <form @submit="onSubmit" @reset="moveBoardList">
+    <form class="input-form" @submit="onSubmit" @reset="moveBoardList">
       <div>
-        <label for="userid"
+        <label for="writer"
           >작성자
           <input
-            id="userid"
-            ref="userid"
-            v-model="board.userid"
+            id="writer"
+            ref="writer"
+            v-model="board.writer"
             type="text"
             placeholder="작성자 입력..."
           />
@@ -29,20 +29,34 @@
 
       <div>
         <textarea
-          id="content"
-          ref="content"
-          v-model="board.content"
+          id="description"
+          ref="description"
+          v-model="board.description"
           rows="10"
           max-rows="15"
           style="resize: none"
         ></textarea>
       </div>
 
-      <button type="submit" variant="primary" v-if="type == 'regist'">
+      <button
+        id="btn--regist"
+        class="btn btn-simple"
+        type="submit"
+        variant="primary"
+        v-if="type == 'regist'"
+      >
         글작성
       </button>
-      <button type="submit" variant="primary" v-else>글수정</button>
-      <button type="reset">글목록</button>
+      <button
+        id="btn--modify"
+        class="btn btn-simple"
+        type="submit"
+        variant="primary"
+        v-else
+      >
+        글수정
+      </button>
+      <button id="btn--list" class="btn btn-simple" type="reset">글목록</button>
     </form>
   </div>
 </template>
@@ -56,9 +70,10 @@ export default {
   data() {
     return {
       board: {
-        userid: "",
+        writer: "",
         title: "",
-        content: "",
+        description: "",
+        no: "",
       },
       isUserid: false,
     };
@@ -66,9 +81,27 @@ export default {
   props: {
     type: { type: String },
   },
-  created() {
+  async created() {
     //데이터 받아오기
     if (this.type === "modify") {
+      try {
+        const res = await boardApi.get("/?no=" + this.$route.params.no);
+        if (res.status == 200) {
+          this.board = { ...res.data[0] };
+        } else if (res.status == 204) {
+          this.$router.push("/board");
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "해당 글이 존재하지 않습니다.",
+          });
+        } else {
+          this.$router.push("/board");
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "해당 글이 조회하는데 실패하였습니다.",
+          });
+        }
+      } catch (e) {}
     }
   },
   methods: {
@@ -81,25 +114,25 @@ export default {
 
       let err = true;
       let msg = "";
-      !this.board.userid &&
+      !this.board.writer &&
         ((msg = "작성자 입력해주세요"),
         (err = false),
-        this.$refs.userid.focus());
+        this.$refs.writer.focus());
       err &&
         !this.board.title &&
         ((msg = "제목 입력해주세요"),
         (err = false), //
         this.$refs.title.focus());
       err &&
-        !this.board.content &&
+        !this.board.description &&
         ((msg = "내용 입력해주세요"),
         (err = false),
-        this.$refs.content.focus());
+        this.$refs.description.focus());
       err &&
-        !this.board.content.length < 50 &&
+        !this.board.description.length > 50 &&
         ((msg = "내용을 50자 이하로 입력해주세요"),
         (err = false),
-        this.$refs.content.focus());
+        this.$refs.description.focus());
 
       if (!err) {
         this.SET_WARNING_MSG({ visible: true, msg });
@@ -111,16 +144,16 @@ export default {
     async registBoard() {
       const newBoard = {
         title: this.board.title,
-        writer: this.board.userid,
-        description: this.board.content,
+        writer: this.board.writer,
+        description: this.board.description,
       };
       const res = await boardApi.post("", newBoard);
       if (res.status == 200) {
+        this.$router.push("/board");
         this.SET_SUCCESS_MSG({
           visible: true,
           msg: "글 등록에 성공하였습니다!!",
         });
-        this.$router.push("/board");
       } else {
         this.SET_DANGER_MSG({
           visible: true,
@@ -128,9 +161,66 @@ export default {
         });
       }
     },
-    modifyboard() {},
+    async modifyBoard() {
+      try {
+        const res = await boardApi.put("/", {
+          title: this.board.title,
+          description: this.board.description,
+          no: this.board.no,
+        });
+        this.$router.push("/board");
+        if (res.status == 200) {
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: "글 수정에 성공하였습니다.",
+          });
+        } else {
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "해당 글을 수정하는데 실패하였습니다.",
+          });
+        }
+      } catch {}
+    },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.input-form {
+  padding: 0 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  * {
+    width: 100%;
+    font-size: 2rem;
+  }
+  label {
+  }
+}
+
+#btn--modify,
+#btn--regist {
+  color: #18ce0f;
+  border: 1px solid #18ce0f;
+}
+
+#btn--modify:hover,
+#btn--regist:hover {
+  color: white;
+  background-color: #18ce0f;
+}
+
+#btn--list {
+  color: blue;
+  border: 1px solid blue;
+}
+
+#btn--list:hover {
+  color: white;
+  background-color: blue;
+}
+</style>

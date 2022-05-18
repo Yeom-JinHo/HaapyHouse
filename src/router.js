@@ -11,6 +11,9 @@ import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
 import BoardList from "./components/Board/BoardList.vue";
 import BoardRegist from "./components/Board/BoardRegist.vue";
+import BoardDetail from "./components/Board/BoardDetail.vue";
+import BoardModify from "./components/Board/BoardModify.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -84,6 +87,14 @@ export default new Router({
         {
           path: "regist",
           component: BoardRegist,
+        },
+        {
+          path: "modify/:no",
+          component: BoardModify,
+        },
+        {
+          path: "detail/:no",
+          component: BoardDetail,
         },
       ],
     },
