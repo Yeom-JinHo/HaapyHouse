@@ -29,6 +29,13 @@
       </li>
 
       <li class="nav-item">
+        <router-link class="nav-link" to="/board">
+          <i class="now-ui-icons text_caps-small"></i>
+          <p class="inline">게시판</p>
+        </router-link>
+      </li>
+
+      <li class="nav-item">
         <router-link class="nav-link" to="/login">
           <i class="now-ui-icons users_circle-08"></i>
           <p>로그인</p>

@@ -6,9 +6,11 @@ import Login from "./pages/Login.vue";
 import Profile from "./pages/Profile.vue";
 import Main from "./pages/Main.vue";
 import Join from "./pages/Join.vue";
+import Board from "./pages/Board.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
 import MainFooter from "./layout/MainFooter.vue";
-
+import BoardList from "./components/Board/BoardList.vue";
+import BoardRegist from "./components/Board/BoardRegist.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -65,6 +67,25 @@ export default new Router({
       props: {
         header: { colorOnScroll: 400 },
       },
+    },
+    {
+      path: "/board",
+      name: "board",
+      components: { default: Board, header: MainNavbar, footer: MainFooter },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" },
+      },
+      children: [
+        {
+          path: "",
+          component: BoardList,
+        },
+        {
+          path: "regist",
+          component: BoardRegist,
+        },
+      ],
     },
   ],
   scrollBehavior: (to) => {

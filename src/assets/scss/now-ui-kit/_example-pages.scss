@@ -19,7 +19,8 @@
     }
   }
 }
-.landing-page {
+.landing-page,
+.board-page {
   .header {
     height: 100vh;
     position: relative;
@@ -78,7 +79,8 @@
 }
 
 // style for the profile page
-.profile-page {
+.profile-page,
+.board-page {
   .page-header {
     min-height: 550px;
   }
@@ -210,7 +212,8 @@
 
 .login-page,
 .profile-page,
-.join-page {
+.join-page,
+.board-page {
   .page-header:before {
     position: absolute;
     z-index: 0;
