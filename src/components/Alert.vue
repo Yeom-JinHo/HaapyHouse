@@ -21,33 +21,40 @@
   </fade-transition>
 </template>
 <script>
-import { FadeTransition } from 'vue2-transitions';
+import { FadeTransition } from "vue2-transitions";
 
 export default {
-  name: 'alert',
+  name: "alert",
   components: {
-    FadeTransition
+    FadeTransition,
   },
   props: {
     type: {
       type: String,
-      default: 'default',
-      description: 'Alert type'
+      default: "default",
+      description: "Alert type",
     },
     dismissible: {
       type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      visible: true
-    };
+      default: false,
+    },
+    visible: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     dismissAlert() {
-      this.visible = false;
-    }
-  }
+      let typeStr = this.type.toUpperCase();
+      this.$store.commit(`SET_${typeStr}_MSG`, { visible: !this.visible });
+    },
+  },
 };
 </script>
+<style scoped>
+.alert {
+  position: fixed;
+  width: 100vw;
+  bottom: 4vh;
+}
+</style>
