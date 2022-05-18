@@ -21,6 +21,8 @@ import router from "./router";
 import NowUiKit from "./plugins/now-ui-kit";
 import VueTyperPlugin from "vue-typer";
 import store from "./store";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 Vue.config.productionTip = false;
 
@@ -28,6 +30,9 @@ Vue.use(NowUiKit);
 Vue.use(VueTyperPlugin);
 
 new Vue({
+  created() {
+    AOS.init();
+  },
   router,
   store,
   render: (h) => h(App),

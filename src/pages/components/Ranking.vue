@@ -2,7 +2,7 @@
   <div class="container">
     <div class="ranking">
       <div class="ranking-title">순위표</div>
-      <div class="first">
+      <div class="first" data-aos="fade-up">
         <div class="tri">
           <div class="triangle"></div>
           <div class="tri-cnt">1</div>
@@ -10,7 +10,12 @@
         <div class="title">{{ dummy[0].title }}</div>
       </div>
       <ul>
-        <li v-for="(item, index) in dummy.slice(1)" :key="index">
+        <li
+          v-for="(item, index) in dummy.slice(1)"
+          :key="index"
+          data-aos="fade-up"
+          data-aos-easing="ease-out-back"
+        >
           <!-- <div class="left"> -->
           <span class="number">{{ index + 2 }}</span>
           <span class="aptName">{{ item.title }}</span>
@@ -111,6 +116,7 @@ export default {
   list-style: none;
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.2);
 }
 .ranking li:hover {
   background-color: royalblue;
