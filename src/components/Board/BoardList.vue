@@ -13,7 +13,7 @@
             <th>regTiem</th>
           </tr>
         </thead>
-        <board-list-item :boards="sliceBoardList" />
+        <board-list-item :boards="sliceBoardList" :startInd="startInd" />
       </table>
       <pagination
         type="primary"
@@ -47,12 +47,15 @@ export default {
     sliceBoardList: function () {
       return this.boards.slice(this.startPage, this.startPage + 10);
     },
+    startInd: function () {
+      return (this.nowPage - 1) * this.defaultPerPage;
+    },
   },
   async created() {
     this.showInfoMsg();
     try {
       const res = await boardApi.get();
-      this.boards = res.data;
+      this.boards = res.data.reverse();
     } catch (e) {
       console.log(e);
     }

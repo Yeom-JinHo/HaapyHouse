@@ -1,7 +1,11 @@
 <template>
   <tbody>
-    <tr v-for="board in boards" :key="board.no">
-      <td>{{ board.no }}</td>
+    <tr
+      @click="moveDetail(board)"
+      v-for="(board, index) in boards"
+      :key="board.no"
+    >
+      <td>{{ startInd + index + 1 }}</td>
       <td>{{ board.title }}</td>
       <td>{{ board.writer }}</td>
       <td>{{ board.regDate }}</td>
@@ -11,13 +15,19 @@
 
 <script>
 export default {
-  props: ["boards"],
+  props: ["boards", "startInd"],
   methods: {
-    test: function () {
-      alert(this.boards);
+    moveDetail: function (board) {
+      // console.log(board);
+      this.$router.push("/board/detail/" + board.no);
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+tr:hover {
+  /* background-color: #f96332; */
+  background-color: #f7a084;
+}
+</style>
