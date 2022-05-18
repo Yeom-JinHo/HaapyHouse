@@ -24,17 +24,20 @@ export default {
 </script>
 <style>
 .custom-section {
-  height: 70vh;
+  min-height: 70vh;
 }
 .custom-section .container {
-  height: 100%;
+  /* height: 100%; */
+  min-height: 70vh;
 }
 
 .custom-section .container .table-container {
-  height: 90%;
+  /* height: 90%; */
+  /* min-height: 63vh; */
 }
 
 .custom-section .container .table {
-  height: 100%;
+  /* height: 100%; */
+  min-height: 63vh;
 }
 </style>
