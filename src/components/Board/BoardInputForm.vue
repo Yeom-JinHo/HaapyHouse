@@ -95,6 +95,11 @@ export default {
         ((msg = "내용 입력해주세요"),
         (err = false),
         this.$refs.content.focus());
+      err &&
+        !this.board.content.length < 50 &&
+        ((msg = "내용을 50자 이하로 입력해주세요"),
+        (err = false),
+        this.$refs.content.focus());
 
       if (!err) {
         this.SET_WARNING_MSG({ visible: true, msg });
