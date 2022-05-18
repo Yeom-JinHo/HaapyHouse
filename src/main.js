@@ -32,3 +32,11 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount("#app");
+
+router.beforeEach(function (to, from, next) {
+  store.commit("SET_SUCCESS_MSG", { visible: false });
+  store.commit("SET_WARNING_MSG", { visible: false });
+  store.commit("SET_INFO_MSG", { visible: false });
+  store.commit("SET_DANGER_MSG", { visible: false });
+  next();
+});
