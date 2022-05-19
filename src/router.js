@@ -14,6 +14,7 @@ import BoardRegist from "./components/Board/BoardRegist.vue";
 import BoardDetail from "./components/Board/BoardDetail.vue";
 import BoardModify from "./components/Board/BoardModify.vue";
 import AptSearch from "./components/Apt/AptSearch.vue";
+import AptDetail from "./components/Apt/AptDetail.vue";
 
 Vue.use(Router);
 
@@ -62,7 +63,10 @@ export default new Router({
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
       },
-      children: [{ path: "", component: AptSearch }],
+      children: [
+        { path: "", component: AptSearch },
+        { path: "detail/:aptCode", component: AptDetail },
+      ],
     },
     {
       path: "/join",
