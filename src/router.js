@@ -73,7 +73,6 @@ export default new Router({
     },
     {
       path: "/board",
-      name: "board",
       components: { default: Board, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
