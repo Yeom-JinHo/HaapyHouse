@@ -39,6 +39,6 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach(function (to, from, next) {
-  store.commit("CLEAR_ALL_MSG");
+  store.commit("msgStore/CLEAR_ALL_MSG");
   next();
 });

@@ -105,7 +105,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["SET_WARNING_MSG", "SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
+    ...mapMutations("msgStore",["SET_WARNING_MSG", "SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
     moveBoardList() {
       this.$router.push("/board");
     },

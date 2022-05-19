@@ -40,7 +40,7 @@ export default {
     Alert,
   },
   computed: {
-    ...mapGetters([
+    ...mapGetters("msgStore",[
       "getSuccessMsg",
       "getInfoMsg",
       "getWarningMsg",

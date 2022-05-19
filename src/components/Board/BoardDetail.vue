@@ -82,7 +82,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
+    ...mapMutations("msgStore",["SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
     async deleteBoard() {
       try {
         const res = await boardApi.delete("/?no=" + this.board.no);

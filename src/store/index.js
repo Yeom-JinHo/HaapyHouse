@@ -3,81 +3,19 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-  state: {
-    successMsg: {
-      visible: false,
-      content: "",
-    },
-    infoMsg: {
-      visible: false,
-      content: "",
-    },
-    warningMsg: {
-      visible: false,
-      content: "",
-    },
-    dangerMsg: {
-      visible: false,
-      content: "",
-    },
-  },
-  getters: {
-    getSuccessVisible(state) {
-      return state.successMsg.visible;
-    },
-    getInfoVisible(state) {
-      return state.infoMsg.visible;
-    },
-    getWarningVisible(state) {
-      return state.warningMsg.visible;
-    },
-    getDangerVisible(state) {
-      return state.dangerMsg.visible;
-    },
 
-    getSuccessMsg(state) {
-      return state.successMsg.content;
-    },
-    getInfoMsg(state) {
-      return state.infoMsg.content;
-    },
-    getWarningMsg(state) {
-      return state.warningMsg.content;
-    },
-    getDangerMsg(state) {
-      return state.dangerMsg.content;
-    },
+import msgStore from "@/store/modules/msgStore.js";
+
+const store = new Vuex.Store({
+  modules: {
+    msgStore,
   },
-  mutations: {
-    SET_SUCCESS_MSG(state, { visible, msg }) {
-      Vue.set(state.successMsg, "visible", visible);
-      Vue.set(state.successMsg, "content", msg || "");
-    },
-    SET_INFO_MSG(state, { visible, msg }) {
-      Vue.set(state.infoMsg, "visible", visible);
-      Vue.set(state.infoMsg, "content", msg || "");
-    },
-    SET_WARNING_MSG(state, { visible, msg }) {
-      Vue.set(state.warningMsg, "visible", visible);
-      Vue.set(state.warningMsg, "content", msg || "");
-    },
-    SET_DANGER_MSG(state, { visible, msg }) {
-      Vue.set(state.dangerMsg, "visible", visible);
-      Vue.set(state.dangerMsg, "content", msg || "");
-    },
-    CLEAR_ALL_MSG(state) {
-      Vue.set(state.successMsg, "visible", false);
-      Vue.set(state.successMsg, "content", "");
-      Vue.set(state.infoMsg, "visible", false);
-      Vue.set(state.infoMsg, "content", "");
-      Vue.set(state.warningMsg, "visible", false);
-      Vue.set(state.warningMsg, "content", "");
-      Vue.set(state.dangerMsg, "visible", false);
-      Vue.set(state.dangerMsg, "content", "");
-    },
-  },
-  actions: {},
-  modules: {},
-  plugins: [],
+  // plugins: [
+  //   createPersistedState({
+  //     // 브라우저 종료시 제거하기 위해 localStorage가 아닌 sessionStorage로 변경. (default: localStorage)
+  //     storage: sessionStorage,
+  //   }),
+  // ],
 });
+
+export default store;

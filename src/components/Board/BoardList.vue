@@ -80,7 +80,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
+    ...mapMutations("msgStore",[
       "SET_WARNING_MSG",
       "SET_INFO_MSG",
       "SET_SUCCESS_MSG",
