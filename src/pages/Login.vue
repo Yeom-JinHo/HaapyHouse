@@ -71,7 +71,11 @@ export default {
     };
   },
   methods: {
-    ...mapMutations("msgStore" ,["SET_INFO_MSG", "SET_WARNING_MSG", "CLEAR_ALL_MSG"]),
+    ...mapMutations("msgStore", [
+      "SET_INFO_MSG",
+      "SET_WARNING_MSG",
+      "CLEAR_ALL_MSG",
+    ]),
     login() {
       let err = true;
       let msg = "";
