@@ -13,7 +13,7 @@
           type="text"
           placeholder="검색어를 입력하세요.."
         />
-        <button @click="search" id="btn--search" class="btn btn-simple">
+        <button @click="searchByType" id="btn--search" class="btn btn-simple">
           검색
         </button>
       </div>
@@ -71,13 +71,8 @@ export default {
       return (this.nowPage - 1) * this.defaultPerPage;
     },
   },
-  async created() {
-    // this.showInfoMsg();
-    try {
-      this.search();
-    } catch (e) {
-      console.log(e);
-    }
+  created() {
+    this.search();
   },
   methods: {
     ...mapMutations("msgStore",[
@@ -88,21 +83,17 @@ export default {
       "CLEAR_ALL_MSG",
     ]),
     async search() {
-      console.log(this.searchType, this.searchVal);
+      // console.log(this.searchType, this.searchVal);
       this.CLEAR_ALL_MSG();
       let params = "";
-      if (this.searchVal.length == 0) {
-        if (this.searchType != null) {
-          this.SET_WARNING_MSG({ visible: true, msg: "검색어를 입력해주세요" });
-          return;
-        }
-      } else if (this.searchType != null) {
+      if(this.searchType!=null){
         params = this.searchType == "id" ? "/?id=" : "/?title=";
         params += this.searchVal;
       }
+      console.log(params)
       try {
         const res = await boardApi.get(params);
-        console.log(res);
+        // console.log(res);
         if (res.status == 200) {
           this.boards = res.data.reverse();
           this.SET_SUCCESS_MSG({
@@ -123,6 +114,15 @@ export default {
         }
       } catch (e) {}
     },
+    searchByType(){
+      if(!this.searchType){
+        this.SET_WARNING_MSG({ visible: true, msg: "검색타입을 선택해주세요" });
+      }else if(!this.searchVal){
+        this.SET_WARNING_MSG({ visible: true, msg: "검색어를 입력해주세요" });
+      }else{
+        this.search();
+      }
+    }
   },
 };
 </script>
