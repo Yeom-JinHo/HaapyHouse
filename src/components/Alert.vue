@@ -46,7 +46,9 @@ export default {
   methods: {
     dismissAlert() {
       let typeStr = this.type.toUpperCase();
-      this.$store.commit(`msgStore/SET_${typeStr}_MSG`, { visible: !this.visible });
+      this.$store.commit(`msgStore/SET_${typeStr}_MSG`, {
+        visible: !this.visible,
+      });
     },
   },
 };
@@ -56,5 +58,8 @@ export default {
   position: fixed;
   width: 100vw;
   bottom: 4vh;
+  height: 3rem;
+  font-weight: bold;
+  z-index: 99;
 }
 </style>

@@ -136,7 +136,7 @@ export default {
   },
   async created() {
     this.SET_INFO_MSG({
-      visible: "true",
+      visible: true,
       msg: "아직 서비스가 서울만 지원하고 있어요!",
     });
     const res = await aptApi.get("/sido");
