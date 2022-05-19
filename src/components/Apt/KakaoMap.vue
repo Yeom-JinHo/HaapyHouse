@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="displayMarker(markerPositions1)">marker set 1</button>
     <div id="map" style="width: 100%; height: 500px"></div>
   </div>
 </template>
@@ -26,11 +25,12 @@ export default {
       ],
       markers: [],
       infowindow: null,
-      props: ["aptList"],
+      // props: ["aptList"],
     };
   },
   watch: {
     aptList: function () {
+      console.log(this.aptList);
       this.displayMarker(this.aptList);
     },
   },
@@ -60,7 +60,7 @@ export default {
       markerPositions = markerPositions.map((item) => [item.lat, item.lng]);
       // 마커 초기화
       this.removeAllMarker();
-
+      if (!window.kakao) return;
       const positions = markerPositions.map(
         (position) => new kakao.maps.LatLng(...position)
       );

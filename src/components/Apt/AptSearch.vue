@@ -54,7 +54,6 @@
             </option>
           </select>
           <button @click="test">테스트</button>
-          <button @click="test2">테스트2</button>
         </div>
         <kakao-map :aptList="searchAptList" />
         <table class="table mt-2">
@@ -68,15 +67,34 @@
           <thead>
             <tr>
               <th>번호</th>
-              <th>아파트이름</th>
+              <th
+                :class="{ sorted: sortedType == 'aptName' }"
+                @click="sort('aptName')"
+              >
+                아파트이름
+              </th>
               <th class="text-center">주소</th>
-              <th>건축연도</th>
-              <th>최근거래금액</th>
+              <th
+                :class="{ sorted: sortedType == 'buildYear' }"
+                @click="sort('buildYear')"
+              >
+                건축연도
+              </th>
+              <th
+                :class="{ sorted: sortedType == 'recentPrice' }"
+                @click="sort('recentPrice')"
+              >
+                최근거래금액
+              </th>
             </tr>
           </thead>
           <!-- <tbody id="searchResult"></tbody> -->
           <tbody>
-            <tr v-for="(apt, ind) in searchAptList" :key="ind">
+            <tr
+              @click="moveDetail(apt.aptCode)"
+              v-for="(apt, ind) in searchAptList"
+              :key="ind"
+            >
               <td>{{ ind + 1 }}</td>
               <td>{{ apt.aptName }}</td>
               <td class="text-center">
@@ -105,6 +123,8 @@ export default {
       gugunArr: null,
       dongArr: null,
       searchAptList: [],
+      sortedType: "aptName",
+      descSort: true,
     };
   },
   computed: {
@@ -157,7 +177,11 @@ export default {
       "SET_GUGUN_CODE",
       "SET_DONG_CODE",
     ]),
-    ...mapMutations("msgStore", ["SET_INFO_MSG"]),
+    ...mapMutations("msgStore", [
+      "SET_INFO_MSG",
+      "SET_SUCCESS_MSG",
+      "CLEAR_ALL_MSG",
+    ]),
     async test() {
       const res = await aptApi.get("/apt?dong=" + 1171010200);
       console.log("SEARCH TEST", res.data);
@@ -173,12 +197,7 @@ export default {
       // this.searchAptList = res.data;
       this.searchAptList = newData;
     },
-    async test2() {
-      const res = await aptApi.get("/apt/deal?aptCode=" + "5398");
-      console.log("SEARCH Deal TEST", res.data);
-      // this.searchAptList = res.data;
-      this.searchAptList = newData;
-    },
+
     async setGugun() {
       const res = await aptApi.get("/gugun?sido=" + this.sidoCode);
       this.gugunArr = res.data;
@@ -191,8 +210,37 @@ export default {
       const res = await aptApi.get("/apt?dong=" + this.dongCode);
       this.searchAptList = res.data;
     },
+    moveDetail(code) {
+      this.$router.push("/apt/detail/" + code);
+    },
+    sort(type) {
+      if (type == this.sortedType) {
+        this.descSort = !this.descSort;
+      } else {
+        this.descSort = true;
+      }
+      this.sortedType = type;
+      console.log(type, this.sortedType, this.descSort);
+      let sortOption = (a, b) => {
+        let result = a[type] > b[type] ? 1 : -1;
+        if (this.descSort) return result * -1;
+        return result;
+      };
+      this.searchAptList = this.searchAptList.sort(sortOption);
+      this.CLEAR_ALL_MSG();
+      this.SET_SUCCESS_MSG({
+        visible: true,
+        msg: `${type}을 ${
+          !this.descSort ? "오름차순" : "내림차순"
+        }으로 정렬되었습니다.`,
+      });
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.sorted {
+  color: red;
+}
+</style>
