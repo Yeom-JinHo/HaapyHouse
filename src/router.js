@@ -4,7 +4,7 @@ import Home from "./pages/Home.vue";
 import Tmp from "./pages/Tmp.vue";
 import Login from "./pages/Login.vue";
 import Profile from "./pages/Profile.vue";
-import Main from "./pages/Main.vue";
+import Apt from "./pages/Apt.vue";
 import Join from "./pages/Join.vue";
 import Board from "./pages/Board.vue";
 import MainNavbar from "./layout/MainNavbar.vue";
@@ -13,6 +13,7 @@ import BoardList from "./components/Board/BoardList.vue";
 import BoardRegist from "./components/Board/BoardRegist.vue";
 import BoardDetail from "./components/Board/BoardDetail.vue";
 import BoardModify from "./components/Board/BoardModify.vue";
+import AptSearch from "./components/Apt/AptSearch.vue";
 
 Vue.use(Router);
 
@@ -55,13 +56,13 @@ export default new Router({
       },
     },
     {
-      path: "/main",
-      name: "main",
-      components: { default: Main, header: MainNavbar, footer: MainFooter },
+      path: "/apt",
+      components: { default: Apt, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
       },
+      children: [{ path: "", component: AptSearch }],
     },
     {
       path: "/join",

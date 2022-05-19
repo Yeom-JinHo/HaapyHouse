@@ -22,7 +22,7 @@
     </template>
     <template slot="navbar-menu">
       <li class="nav-item">
-        <router-link class="nav-link" to="/main">
+        <router-link class="nav-link" to="/apt">
           <i class="now-ui-icons location_pin"></i>
           <p class="inline">아파트 살펴보기</p>
         </router-link>
