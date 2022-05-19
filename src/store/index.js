@@ -3,12 +3,13 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-
 import msgStore from "@/store/modules/msgStore.js";
+import aptStore from "@/store/modules/aptStore.js";
 
 const store = new Vuex.Store({
   modules: {
     msgStore,
+    aptStore,
   },
   // plugins: [
   //   createPersistedState({

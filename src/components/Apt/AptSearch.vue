@@ -8,7 +8,7 @@
             @change="setGugun"
             class="form-control"
             id="sido"
-            v-model="sidoCode"
+            v-model="sidoData"
           >
             <option :value="null">시 도</option>
             <option
@@ -25,7 +25,7 @@
             @change="setDong"
             class="form-control"
             id="gugun"
-            v-model="gugunCode"
+            v-model="gugunData"
           >
             <option :value="null">구 군</option>
             <option
@@ -42,7 +42,7 @@
             @change="searchApt"
             class="form-control"
             id="dong"
-            v-model="dongCode"
+            v-model="dongData"
           >
             <option :value="null">읍 면 동</option>
             <option
@@ -96,24 +96,68 @@
 <script>
 import KakaoMap from "./KakaoMap.vue";
 import aptApi from "@/apis/aptApi.js";
+import { mapMutations, mapState } from "vuex";
 export default {
   components: { KakaoMap },
   data() {
     return {
-      sidoCode: null,
-      gugunCode: null,
-      dongCode: null,
       sidoArr: null,
       gugunArr: null,
       dongArr: null,
       searchAptList: [],
     };
   },
+  computed: {
+    ...mapState("aptStore", ["sidoCode", "gugunCode", "dongCode"]),
+    sidoData: {
+      get() {
+        return this.sidoCode;
+      },
+      set(code) {
+        this.SET_SIDO_CODE(code);
+      },
+    },
+    gugunData: {
+      get() {
+        return this.gugunCode;
+      },
+      set(code) {
+        this.SET_GUGUN_CODE(code);
+      },
+    },
+    dongData: {
+      get() {
+        return this.dongCode;
+      },
+      set(code) {
+        this.SET_DONG_CODE(code);
+      },
+    },
+  },
   async created() {
+    this.SET_INFO_MSG({
+      visible: "true",
+      msg: "아직 서비스가 서울만 지원하고 있어요!",
+    });
     const res = await aptApi.get("/sido");
     this.sidoArr = res.data;
+    if (!!this.sidoCode) {
+      this.setGugun();
+    }
+    if (!!this.gugunCode) {
+      this.setDong();
+    }
+    if (!!this.dongCode) {
+      this.searchApt();
+    }
   },
   methods: {
+    ...mapMutations("aptStore", [
+      "SET_SIDO_CODE",
+      "SET_GUGUN_CODE",
+      "SET_DONG_CODE",
+    ]),
+    ...mapMutations("msgStore", ["SET_INFO_MSG"]),
     async test() {
       const res = await aptApi.get("/apt?dong=" + 1171010200);
       console.log("SEARCH TEST", res.data);
