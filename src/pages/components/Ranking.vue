@@ -15,6 +15,7 @@
           :key="index"
           data-aos="fade-up"
           data-aos-easing="ease-out-back"
+          data-aos-duration="1000"
         >
           <!-- <div class="left"> -->
           <span class="number">{{ index + 2 }}</span>
