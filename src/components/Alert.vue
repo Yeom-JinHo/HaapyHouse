@@ -46,7 +46,7 @@ export default {
   methods: {
     dismissAlert() {
       let typeStr = this.type.toUpperCase();
-      this.$store.commit(`SET_${typeStr}_MSG`, { visible: !this.visible });
+      this.$store.commit(`msgStore/SET_${typeStr}_MSG`, { visible: !this.visible });
     },
   },
 };
