@@ -15,6 +15,7 @@
                   class="form-control"
                   placeholder="아이디를 입력해주세요.."
                   v-model="id"
+                  ref="id"
                 />
               </div>
               <div class="input-group input-password">
@@ -23,6 +24,7 @@
                   class="form-control"
                   placeholder="비밀번호를 입력해주세요.."
                   v-model="password"
+                  ref="password"
                 />
               </div>
             </div>
@@ -32,11 +34,7 @@
                   @click="login"
                   class="btn btn-primary btn-round btn-lg btn-block"
                 >
-                  <i
-                    v-if="loginWaiting"
-                    class="now-ui-icons loader_refresh"
-                  ></i>
-                  <div v-else>로그인</div>
+                  <div>로그인</div>
                 </button>
               </div>
               <div class="pull-center">
@@ -57,6 +55,7 @@
 <script>
 import { Card, Button } from "@/components";
 import MainFooter from "@/layout/MainFooter";
+import { mapMutations } from "vuex";
 export default {
   name: "login-page",
   bodyClass: "login-page",
@@ -69,16 +68,29 @@ export default {
     return {
       id: "",
       password: "",
-      loginWaiting: false,
     };
   },
   methods: {
+    ...mapMutations("msgStore" ,["SET_INFO_MSG", "SET_WARNING_MSG", "CLEAR_ALL_MSG"]),
     login() {
-      if (!this.loginWaiting) {
-        this.loginWaiting = true;
-        console.log("id : ", this.id, " password", this.password);
+      let err = true;
+      let msg = "";
+      !this.id &&
+        ((msg = "아이디를 입력해주세요"), (err = false), this.$refs.id.focus());
+      err &&
+        !this.password &&
+        ((msg = "비밀번호를 입력해주세요"),
+        (err = false), //
+        this.$refs.password.focus());
+      if (!err) {
+        this.SET_WARNING_MSG({ visible: true, msg });
       } else {
-        console.log("로그인 진행중입니담.. 잠시만요");
+        this.CLEAR_ALL_MSG();
+        this.SET_INFO_MSG({
+          visible: true,
+          msg: "로그인 진행중입니다. 잠시만 기다려주세요",
+        });
+        //여기서 로그인 처리
       }
     },
   },

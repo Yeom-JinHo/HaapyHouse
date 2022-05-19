@@ -29,13 +29,13 @@
             <template slot="raw-content">
               <div class="card-footer text-center">
                 <button class="btn btn-primary btn-round btn-lg btn-block">
-                  로그인
+                  회원가입
                 </button>
               </div>
               <div class="pull-center">
                 <h6>
-                  <router-link to="/join" class="link footer-link"
-                    >회원가입</router-link
+                  <router-link to="/login" class="link footer-link"
+                    >로그인</router-link
                   >
                 </h6>
               </div>
