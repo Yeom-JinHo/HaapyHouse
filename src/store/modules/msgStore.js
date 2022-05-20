@@ -3,8 +3,8 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const msgStore={
-  namespaced:true,
+const msgStore = {
+  namespaced: true,
   state: {
     successMsg: {
       visible: false,
@@ -52,18 +52,22 @@ const msgStore={
   },
   mutations: {
     SET_SUCCESS_MSG(state, { visible, msg }) {
+      this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.successMsg, "visible", visible);
       Vue.set(state.successMsg, "content", msg || "");
     },
     SET_INFO_MSG(state, { visible, msg }) {
+      this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.infoMsg, "visible", visible);
       Vue.set(state.infoMsg, "content", msg || "");
     },
     SET_WARNING_MSG(state, { visible, msg }) {
+      this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.warningMsg, "visible", visible);
       Vue.set(state.warningMsg, "content", msg || "");
     },
     SET_DANGER_MSG(state, { visible, msg }) {
+      this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.dangerMsg, "visible", visible);
       Vue.set(state.dangerMsg, "content", msg || "");
     },
