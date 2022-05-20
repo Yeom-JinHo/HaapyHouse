@@ -3,7 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-const msgStore = {
+const aptStore = {
   namespaced: true,
   state: {
     sidoCode: "",
@@ -27,4 +27,4 @@ const msgStore = {
   plugins: [],
 };
 
-export default msgStore;
+export default aptStore;

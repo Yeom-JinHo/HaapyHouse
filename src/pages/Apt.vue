@@ -11,7 +11,7 @@
       >
       </parallax>
       <div class="container">
-        <h1 class="title">아파트 둘러보기</h1>
+        <h1 class="title">아파트 살펴보기</h1>
       </div>
     </div>
     <div id="custom-section">
