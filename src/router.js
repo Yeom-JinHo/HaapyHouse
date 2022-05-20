@@ -118,7 +118,7 @@ export default new Router({
       ],
     },
     {
-      path: "/oauth",
+      path: "/oauth/:socialType",
       components: {
         default: OauthRedirectHandler,
         header: MainNavbar,
