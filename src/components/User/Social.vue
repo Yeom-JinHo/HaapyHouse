@@ -2,7 +2,7 @@
   <div>
     <h5 id="or-bar">또는</h5>
     <div class="social">
-      <button class="btn" id="kakao-btn">
+      <button @click="startKakao" class="btn" id="kakao-btn">
         <img src="img/kakao.svg" class="social-icon kakao" />카카오로 시작하기
       </button>
       <button class="btn" id="naver-btn">
@@ -15,7 +15,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    startKakao() {
+      console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
+      const REST_API_KEY = process.env.VUE_APP_KAKAO_LOGIN_API_KEY;
+      const REDIRECT_URI = `http://localhost:8080/oauth`;
+      const requestURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+      window.location.href = requestURL;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

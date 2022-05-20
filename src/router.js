@@ -15,12 +15,15 @@ import BoardDetail from "./components/Board/BoardDetail.vue";
 import BoardModify from "./components/Board/BoardModify.vue";
 import AptSearch from "./components/Apt/AptSearch.vue";
 import AptDetail from "./components/Apt/AptDetail.vue";
+import OauthRedirectHandler from "./pages/OAuthRedirectHandler.vue";
+
 import store from "@/store/index.js";
 
 Vue.use(Router);
 
 export default new Router({
   linkExactActiveClass: "active",
+  mode: "history",
   routes: [
     {
       path: "/",
@@ -113,6 +116,18 @@ export default new Router({
           component: BoardDetail,
         },
       ],
+    },
+    {
+      path: "/oauth",
+      components: {
+        default: OauthRedirectHandler,
+        header: MainNavbar,
+        footer: MainFooter,
+      },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" },
+      },
     },
   ],
   scrollBehavior: (to) => {
