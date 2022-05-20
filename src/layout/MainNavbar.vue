@@ -35,14 +35,14 @@
         </router-link>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" v-if="!isLogin">
         <router-link class="nav-link" to="/login">
           <i class="now-ui-icons users_circle-08"></i>
           <p>로그인</p>
         </router-link>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" v-if="!isLogin">
         <router-link class="nav-link" to="/join">
           <i class="now-ui-icons objects_spaceship"></i>
           <p>회원가입</p>
@@ -54,6 +54,7 @@
         title="내정보"
         icon="now-ui-icons users_single-02"
         class="nav-item"
+        v-if="isLogin"
       >
         <button @click="logout" class="dropdown-item">로그아웃</button>
         <nav-link to="/profile">
@@ -68,6 +69,7 @@
 <script>
 import { DropDown, Navbar, NavLink } from "@/components";
 import { Popover } from "element-ui";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "main-navbar",
@@ -82,9 +84,18 @@ export default {
     [Popover.name]: Popover,
   },
   methods: {
+    ...mapMutations("userStore", ["SET_IS_LOGIN", "SET_USER_INFO"]),
+    ...mapMutations("msgStore", ["SET_SUCCESS_MSG"]),
     logout() {
-      alert("로그아웃하시겠습니까?");
+      this.SET_IS_LOGIN(false);
+      this.SET_USER_INFO(null);
+      sessionStorage.removeItem("access-token");
+      if (this.$route.path != "/") this.$router.push("/");
+      this.SET_SUCCESS_MSG({ visible: true, msg: "로그아웃 되었습니다!" });
     },
+  },
+  computed: {
+    ...mapState("userStore", ["isLogin"]),
   },
 };
 </script>
