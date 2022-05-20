@@ -4,7 +4,7 @@
       class="page-header-image"
       style="background-image: url('img/login.jpg')"
     ></div>
-    <div class="content">
+    <div class="content" id="custom-content">
       <div class="container">
         <div class="col-md-5 ml-auto mr-auto">
           <card type="login" title="로그인" plain>
@@ -31,18 +31,17 @@
             <template slot="raw-content">
               <div class="card-footer text-center">
                 <button
-                  @click="login"
+                  @click="loginUser"
                   class="btn btn-primary btn-round btn-lg btn-block"
                 >
                   <div>로그인</div>
                 </button>
               </div>
+              <social />
               <div class="pull-center">
-                <h6>
-                  <router-link to="/join" class="link footer-link"
-                    >회원가입</router-link
-                  >
-                </h6>
+                <router-link to="/join" class="link footer-link"
+                  >회원가입</router-link
+                >
               </div>
             </template>
           </card>
@@ -55,13 +54,15 @@
 <script>
 import { Card, Button } from "@/components";
 import MainFooter from "@/layout/MainFooter";
-import { mapMutations } from "vuex";
+import { mapActions, mapMutations, mapState } from "vuex";
+import Social from "../components/User/Social.vue";
 export default {
   name: "login-page",
   bodyClass: "login-page",
   components: {
     Card,
     MainFooter,
+    Social,
     [Button.name]: Button,
   },
   data() {
@@ -70,13 +71,19 @@ export default {
       password: "",
     };
   },
+  computed: {
+    ...mapState("userStore", ["isLogin"]),
+  },
   methods: {
     ...mapMutations("msgStore", [
       "SET_INFO_MSG",
       "SET_WARNING_MSG",
       "CLEAR_ALL_MSG",
+      "SET_DANGER_MSG",
+      "SET_SUCCESS_MSG",
     ]),
-    login() {
+    ...mapActions("userStore", ["login", "getUserInfo"]),
+    async loginUser() {
       let err = true;
       let msg = "";
       !this.id &&
@@ -90,11 +97,29 @@ export default {
         this.SET_WARNING_MSG({ visible: true, msg });
       } else {
         this.CLEAR_ALL_MSG();
-        this.SET_INFO_MSG({
-          visible: true,
-          msg: "로그인 진행중입니다. 잠시만 기다려주세요",
-        });
         //여기서 로그인 처리
+        try {
+          await this.login({ userId: this.id, userPwd: this.password });
+          if (this.isLogin) {
+            await this.getUserInfo();
+            this.$router.push("/");
+            this.SET_SUCCESS_MSG({
+              visible: true,
+              msg: "로그인에 성공하였습니다.",
+            });
+          } else {
+            this.SET_DANGER_MSG({
+              visible: true,
+              msg: "로그인에 실패하였습니다.",
+            });
+          }
+        } catch (e) {
+          console.log(e);
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "로그인 처리중 오류 발생!",
+          });
+        }
       }
     },
   },
@@ -111,5 +136,9 @@ export default {
 }
 .loader_refresh {
   animation: spin 2s linear infinite;
+}
+
+#custom-content {
+  margin-top: 8%;
 }
 </style>
