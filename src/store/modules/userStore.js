@@ -6,7 +6,7 @@ const userStore = {
   state: {
     isLogin: true,
     isLoginError: false,
-    userInfo: { userId: "123" },
+    userInfo: null,
   },
   getters: {
     checkUserInfo: function (state) {
@@ -27,9 +27,9 @@ const userStore = {
   },
   actions: {
     async login({ commit }, user) {
-      console.log("userSotre", user);
+      console.log("userSotre LOGIN", user);
       console.log(JSON.stringify(user));
-      const res = await userApi.post("/login", JSON.stringify(user));
+      const res = await userApi.post("/login", user);
       console.log(res);
       if (res.data.message === "success") {
         let token = res.data["access-token"];
@@ -57,6 +57,17 @@ const userStore = {
       } else {
         console.log("유저 정보 없음!!");
       }
+    },
+    async join({ dispatch }, user) {
+      console.log("userStore JOIN", user);
+      const res = await userApi.post("insert", user);
+      console.log("join", res);
+
+      dispatch("login", {
+        userId: user.userId,
+        userPwd: user.userPwd,
+        socialType: user.socialType,
+      });
     },
   },
 };
