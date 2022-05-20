@@ -15,6 +15,7 @@ import BoardDetail from "./components/Board/BoardDetail.vue";
 import BoardModify from "./components/Board/BoardModify.vue";
 import AptSearch from "./components/Apt/AptSearch.vue";
 import AptDetail from "./components/Apt/AptDetail.vue";
+import store from "@/store/index.js";
 
 Vue.use(Router);
 
@@ -54,6 +55,17 @@ export default new Router({
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },
+      },
+      beforeEnter: function (to, from, next) {
+        if (store.state.userStore.isLogin) {
+          next();
+        } else {
+          next("/");
+          store.state.msgStore.dangerMsg = {
+            visible: true,
+            msg: "로그인을 해주세요",
+          };
+        }
       },
     },
     {
