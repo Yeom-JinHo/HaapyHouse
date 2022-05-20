@@ -1,138 +1,234 @@
 <template>
   <div>
-    <div class="page-header clear-filter" filter-color="orange">
+    <div
+      class="page-header clear-filter"
+      id="custom-header"
+      filter-color="orange"
+    >
       <parallax
         class="page-header-image"
-        style="background-image:url('img/bg5.jpg')"
+        style="background-image: url('img/bg5.jpg')"
       >
       </parallax>
-      <div class="container">
+      <div class="container" v-if="userInfo">
+        <div class="content" id="profile-set">
+          <div></div>
+
+          <img
+            v-if="!isModify"
+            @click="modifyData"
+            id="modifyBtn"
+            src="img/modifyBtn.svg"
+            alt="회원정보수정"
+          />
+
+          <img
+            v-else
+            @click="modifyData"
+            id="modifyBtn"
+            src="img/modifyBtn2.svg"
+            alt="회원정보수정"
+          />
+        </div>
+
         <div class="photo-container">
           <img src="img/ryan.jpg" alt="" />
         </div>
-        <h3 class="title">Ryan Scheinder</h3>
-        <p class="category">Photographer</p>
-        <div class="content">
-          <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
+        <div class="container" v-if="!isModify">
+          <h3 class="title">
+            {{ userInfo.userName }}
+          </h3>
+          <p class="category">{{ userInfo.joinDate }}</p>
+          <div class="content">
+            <div class="social-description">
+              <h2>26</h2>
+              <p>Stars</p>
+            </div>
+            <div class="social-description">
+              <h2>26</h2>
+              <p>Comments</p>
+            </div>
+            <div class="social-description">
+              <h2>48</h2>
+              <p>Bookmarks</p>
+            </div>
           </div>
-          <div class="social-description">
-            <h2>26</h2>
-            <p>Comments</p>
-          </div>
-          <div class="social-description">
-            <h2>48</h2>
-            <p>Bookmarks</p>
-          </div>
+        </div>
+        <div class="modify-form content" v-else>
+          <label for="">아이디</label>
+          <input type="text" v-model="m_userId" disabled />
+          <label for="">비밀번호"</label>
+          <input type="text" v-model="m_pwd" ref="pwd" />
+          <label for="">비밀번호 확인</label>
+          <input type="text" v-model="m_chkPwd" ref="chkPwd" />
+          <label for="">닉네임</label>
+          <input type="text" v-model="m_nickName" ref="nickName" />
+          <button @click="modifyUser" class="btn btn-simple" id="btn--modify">
+            회원정보 수정
+          </button>
+          <button @click="modifyData" class="btn btn-simple" id="btn--list">
+            취소
+          </button>
         </div>
       </div>
     </div>
-    <div class="section">
+    <div class="section" id="custom-section">
       <div class="container">
-        <div class="button-container">
-          <a href="#button" class="btn btn-primary btn-round btn-lg">Follow</a>
-          <a
-            href="#button"
-            class="btn btn-default btn-round btn-lg btn-icon"
-            rel="tooltip"
-            title="Follow me on Twitter"
-          >
-            <i class="fab fa-twitter"></i>
-          </a>
-          <a
-            href="#button"
-            class="btn btn-default btn-round btn-lg btn-icon"
-            rel="tooltip"
-            title="Follow me on Instagram"
-          >
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
-        <h3 class="title">About me</h3>
-        <h5 class="description">
-          An artist of considerable range, Ryan — the name taken by
-          Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and
-          records all of his own music, giving it a warm, intimate feel with a
-          solid groove structure. An artist of considerable range.
-        </h5>
         <div class="row">
           <div class="col-md-6 ml-auto mr-auto">
-            <h4 class="title text-center">My Portfolio</h4>
+            <h4 class="title text-center">된다면 여기에 관심 아파트 리스트</h4>
           </div>
-          <tabs
-            pills
-            class="nav-align-center"
-            tab-content-classes="gallery"
-            tab-nav-classes="nav-pills-just-icons"
-            type="primary"
-          >
-            <tab-pane title="Profile">
-              <i slot="label" class="now-ui-icons design_image"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg6.jpg" class="img-raised" />
-                    <img src="img/bg11.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
+          <div class="col-md-10 ml-auto mr-auto">
+            <div class="row collections">
+              <div class="col-md-6">
+                <img src="img/bg6.jpg" ref="test" class="img-raised" />
+                <img src="img/bg11.jpg" alt="" class="img-raised" />
               </div>
-            </tab-pane>
-
-            <tab-pane title="Home">
-              <i slot="label" class="now-ui-icons location_world"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg1.jpg" alt="" class="img-raised" />
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                  </div>
-                </div>
+              <div class="col-md-6">
+                <img src="img/bg7.jpg" alt="" class="img-raised" />
+                <img src="img/bg8.jpg" alt="" class="img-raised" />
               </div>
-            </tab-pane>
-
-            <tab-pane title="Messages">
-              <i slot="label" class="now-ui-icons sport_user-run"></i>
-
-              <div class="col-md-10 ml-auto mr-auto">
-                <div class="row collections">
-                  <div class="col-md-6">
-                    <img src="img/bg3.jpg" alt="" class="img-raised" />
-                    <img src="img/bg8.jpg" alt="" class="img-raised" />
-                  </div>
-                  <div class="col-md-6">
-                    <img src="img/bg7.jpg" alt="" class="img-raised" />
-                    <img src="img/bg6.jpg" class="img-raised" />
-                  </div>
-                </div>
-              </div>
-            </tab-pane>
-          </tabs>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { Tabs, TabPane } from '@/components';
+import { mapActions, mapMutations, mapState } from "vuex";
+import userApi from "@/apis/userApi.js";
 
 export default {
-  name: 'profile',
-  bodyClass: 'profile-page',
-  components: {
-    Tabs,
-    TabPane
-  }
+  name: "profile",
+  bodyClass: "profile-page",
+  data() {
+    return {
+      isModify: false,
+      m_userId: "",
+      m_pwd: "",
+      m_chkPwd: "",
+      m_nickName: "",
+    };
+  },
+  components: {},
+  created() {},
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
+  },
+  methods: {
+    ...mapActions("userStore", ["getUserInfo"]),
+    ...mapMutations("msgStore", [
+      "SET_WARNING_MSG",
+      "SET_SUCCESS_MSG",
+      "SET_DANGER_MSG",
+    ]),
+    modifyData() {
+      this.initSetData();
+      this.isModify = !this.isModify;
+    },
+    initSetData() {
+      console.log("SET", this.userInfo);
+      this.m_userId = this.userInfo.userId;
+      // this.m_pwd = this.userInfo.userPwd;
+      // this.m_chkPwd=this.userInfo.userPwd;
+      this.m_nickName = this.userInfo.userName;
+    },
+    async modifyUser() {
+      let err = true;
+      let msg = "";
+      this.m_pwd != this.m_chkPwd &&
+        ((msg = "비밀번호가 서로 달라요! 다시 입력해주세요"),
+        (err = false),
+        this.$refs.chkPwd.focus());
+      err &&
+        !this.m_nickName &&
+        ((msg = "닉네임을 입력해주세요"),
+        (err = false), //
+        this.$refs.nickName.focus());
+      if (!err) {
+        this.SET_WARNING_MSG({ visible: true, msg });
+      } else {
+        const newUser = {
+          ...this.userInfo,
+          userId: this.m_userId,
+          userPwd: this.m_pwd,
+          userName: this.m_nickName,
+        };
+        console.log(newUser);
+        const res = await userApi.put(
+          "/update/" + this.userInfo.userId,
+          newUser
+        );
+        console.log(res);
+        if (res.status == 200) {
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: "유저 정보수정에 성공하였습니다.",
+          });
+          await this.getUserInfo();
+          this.isModify = !this.isModify;
+        } else {
+          this.SET_DANGER_MSG({
+            visible: true,
+            msg: "유저정보 수정에 실패하였습니다.",
+          });
+        }
+      }
+    },
+  },
 };
 </script>
-<style></style>
+<style lang="scss">
+.modify-form {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  label {
+    font-size: 1.5rem;
+  }
+}
+
+#profile-set {
+  display: flex;
+  justify-content: space-between;
+}
+
+#modifyBtn {
+  width: 1.5rem;
+}
+
+#custom-header {
+  min-height: 10vh;
+}
+
+#custom-section {
+  min-height: 77vh;
+}
+
+// .btn {
+// background-color: white;
+// }
+
+#btn--modify,
+#btn--regist {
+  color: #18ce0f;
+  border: 1px solid #18ce0f;
+}
+
+#btn--modify:hover,
+#btn--regist:hover {
+  color: white;
+  background-color: #18ce0f;
+}
+
+#btn--list {
+  color: blue;
+  border: 1px solid blue;
+}
+
+#btn--list:hover {
+  color: white;
+  background-color: blue;
+}
+</style>
