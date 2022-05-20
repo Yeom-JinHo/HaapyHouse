@@ -36,7 +36,7 @@
               </div>
               <div class="input-group">
                 <input
-                  type="password"
+                  type="text"
                   class="form-control"
                   placeholder="닉네임을 입력해주세요.."
                   v-model="nickname"
@@ -103,6 +103,11 @@ export default {
     ]),
     ...mapActions("userStore", ["join", "getUserInfo"]),
     async chkID() {
+      if (!this.id) {
+        this.$refs.id.focus();
+        this.SET_WARNING_MSG({ visible: true, msg: "아이디를 입력해주세요" });
+        return;
+      }
       try {
         this.validId = "";
         const res = await userApi.get(
@@ -118,7 +123,7 @@ export default {
         }
       } catch (e) {
         console.log(e);
-        this.SET_DANGER_MSG({
+        this.SET_WARNING_MSG({
           visible: true,
           msg: "이미 사용중인 아이디입니다.",
         });
@@ -150,6 +155,7 @@ export default {
           userName: this.nickname,
           socialType: "general",
         });
+        console.log("join 후 isLogin 상태", this.isLogin);
         if (this.isLogin) {
           await this.getUserInfo();
           this.$router.push("/");
@@ -164,6 +170,8 @@ export default {
           });
         }
       }
+
+      console.log("JOINUSE END__");
     },
   },
 };

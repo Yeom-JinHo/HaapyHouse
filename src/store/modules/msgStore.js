@@ -8,19 +8,19 @@ const msgStore = {
   state: {
     successMsg: {
       visible: false,
-      content: "",
+      msg: "",
     },
     infoMsg: {
       visible: false,
-      content: "",
+      msg: "",
     },
     warningMsg: {
       visible: false,
-      content: "",
+      msg: "",
     },
     dangerMsg: {
       visible: false,
-      content: "",
+      msg: "",
     },
   },
   getters: {
@@ -38,48 +38,48 @@ const msgStore = {
     },
 
     getSuccessMsg(state) {
-      return state.successMsg.content;
+      return state.successMsg.msg;
     },
     getInfoMsg(state) {
-      return state.infoMsg.content;
+      return state.infoMsg.msg;
     },
     getWarningMsg(state) {
-      return state.warningMsg.content;
+      return state.warningMsg.msg;
     },
     getDangerMsg(state) {
-      return state.dangerMsg.content;
+      return state.dangerMsg.msg;
     },
   },
   mutations: {
     SET_SUCCESS_MSG(state, { visible, msg }) {
       this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.successMsg, "visible", visible);
-      Vue.set(state.successMsg, "content", msg || "");
+      Vue.set(state.successMsg, "msg", msg || "");
     },
     SET_INFO_MSG(state, { visible, msg }) {
       this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.infoMsg, "visible", visible);
-      Vue.set(state.infoMsg, "content", msg || "");
+      Vue.set(state.infoMsg, "msg", msg || "");
     },
     SET_WARNING_MSG(state, { visible, msg }) {
       this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.warningMsg, "visible", visible);
-      Vue.set(state.warningMsg, "content", msg || "");
+      Vue.set(state.warningMsg, "msg", msg || "");
     },
     SET_DANGER_MSG(state, { visible, msg }) {
       this.commit("msgStore/CLEAR_ALL_MSG");
       Vue.set(state.dangerMsg, "visible", visible);
-      Vue.set(state.dangerMsg, "content", msg || "");
+      Vue.set(state.dangerMsg, "msg", msg || "");
     },
     CLEAR_ALL_MSG(state) {
       Vue.set(state.successMsg, "visible", false);
-      Vue.set(state.successMsg, "content", "");
+      Vue.set(state.successMsg, "msg", "");
       Vue.set(state.infoMsg, "visible", false);
-      Vue.set(state.infoMsg, "content", "");
+      Vue.set(state.infoMsg, "msg", "");
       Vue.set(state.warningMsg, "visible", false);
-      Vue.set(state.warningMsg, "content", "");
+      Vue.set(state.warningMsg, "msg", "");
       Vue.set(state.dangerMsg, "visible", false);
-      Vue.set(state.dangerMsg, "content", "");
+      Vue.set(state.dangerMsg, "msg", "");
     },
   },
   actions: {},

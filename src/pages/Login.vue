@@ -110,7 +110,7 @@ export default {
           } else {
             this.SET_DANGER_MSG({
               visible: true,
-              msg: "로그인에 실패하였습니다.",
+              msg: "아이디 혹은 비밀번호가 일치하지않습니다.",
             });
           }
         } catch (e) {

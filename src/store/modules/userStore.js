@@ -4,7 +4,7 @@ import userApi from "../../apis/userApi";
 const userStore = {
   namespaced: true,
   state: {
-    isLogin: true,
+    isLogin: false,
     isLoginError: false,
     userInfo: null,
   },
@@ -15,13 +15,13 @@ const userStore = {
   },
   mutations: {
     SET_IS_LOGIN: (state, isLogin) => {
+      console.log("SET_LOGIN", isLogin);
       state.isLogin = isLogin;
     },
     SET_IS_LOGIN_ERROR: (state, isLoginError) => {
       state.isLoginError = isLoginError;
     },
     SET_USER_INFO: (state, userInfo) => {
-      state.isLogin = true;
       state.userInfo = userInfo;
     },
   },
@@ -32,6 +32,7 @@ const userStore = {
       const res = await userApi.post("/login", user);
       console.log(res);
       if (res.data.message === "success") {
+        console.log("resDat", res.data.message);
         let token = res.data["access-token"];
         commit("SET_IS_LOGIN", true);
         commit("SET_IS_LOGIN_ERROR", false);
@@ -63,7 +64,7 @@ const userStore = {
       const res = await userApi.post("insert", user);
       console.log("join", res);
 
-      dispatch("login", {
+      await dispatch("login", {
         userId: user.userId,
         userPwd: user.userPwd,
         socialType: user.socialType,
