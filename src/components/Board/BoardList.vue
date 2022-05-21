@@ -75,22 +75,19 @@ export default {
     this.search();
   },
   methods: {
-    ...mapMutations("msgStore",[
+    ...mapMutations("msgStore", [
       "SET_WARNING_MSG",
       "SET_INFO_MSG",
       "SET_SUCCESS_MSG",
       "SET_DANGER_MSG",
-      "CLEAR_ALL_MSG",
     ]),
     async search() {
-      // console.log(this.searchType, this.searchVal);
-      this.CLEAR_ALL_MSG();
       let params = "";
-      if(this.searchType!=null){
+      if (this.searchType != null) {
         params = this.searchType == "id" ? "/?id=" : "/?title=";
         params += this.searchVal;
       }
-      console.log(params)
+      console.log(params);
       try {
         const res = await boardApi.get(params);
         // console.log(res);
@@ -114,15 +111,15 @@ export default {
         }
       } catch (e) {}
     },
-    searchByType(){
-      if(!this.searchType){
+    searchByType() {
+      if (!this.searchType) {
         this.SET_WARNING_MSG({ visible: true, msg: "검색타입을 선택해주세요" });
-      }else if(!this.searchVal){
+      } else if (!this.searchVal) {
         this.SET_WARNING_MSG({ visible: true, msg: "검색어를 입력해주세요" });
-      }else{
+      } else {
         this.search();
       }
-    }
+    },
   },
 };
 </script>

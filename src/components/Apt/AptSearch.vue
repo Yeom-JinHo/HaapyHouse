@@ -177,11 +177,7 @@ export default {
       "SET_GUGUN_CODE",
       "SET_DONG_CODE",
     ]),
-    ...mapMutations("msgStore", [
-      "SET_INFO_MSG",
-      "SET_SUCCESS_MSG",
-      "CLEAR_ALL_MSG",
-    ]),
+    ...mapMutations("msgStore", ["SET_INFO_MSG", "SET_SUCCESS_MSG"]),
     async test() {
       const res = await aptApi.get("/apt?dong=" + 1171010200);
       console.log("SEARCH TEST", res.data);
@@ -227,7 +223,6 @@ export default {
         return result;
       };
       this.searchAptList = this.searchAptList.sort(sortOption);
-      this.CLEAR_ALL_MSG();
       this.SET_SUCCESS_MSG({
         visible: true,
         msg: `${type}을 ${

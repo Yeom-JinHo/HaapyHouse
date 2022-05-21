@@ -79,11 +79,7 @@ export default {
     this.aptDealList = res.data;
   },
   methods: {
-    ...mapMutations("msgStore", [
-      "SET_INFO_MSG",
-      "SET_SUCCESS_MSG",
-      "CLEAR_ALL_MSG",
-    ]),
+    ...mapMutations("msgStore", ["SET_INFO_MSG", "SET_SUCCESS_MSG"]),
     sort(type) {
       if (type == this.sortedType) {
         this.descSort = !this.descSort;
@@ -110,7 +106,6 @@ export default {
       }
 
       this.aptDealList = this.aptDealList.sort(sortOption);
-      this.CLEAR_ALL_MSG();
       this.SET_SUCCESS_MSG({
         visible: true,
         msg: `${type}을 ${

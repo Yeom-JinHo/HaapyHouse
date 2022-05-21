@@ -78,7 +78,6 @@ export default {
     ...mapMutations("msgStore", [
       "SET_INFO_MSG",
       "SET_WARNING_MSG",
-      "CLEAR_ALL_MSG",
       "SET_DANGER_MSG",
       "SET_SUCCESS_MSG",
     ]),
@@ -96,7 +95,6 @@ export default {
       if (!err) {
         this.SET_WARNING_MSG({ visible: true, msg });
       } else {
-        this.CLEAR_ALL_MSG();
         //여기서 로그인 처리
         try {
           await this.login({ userId: this.id, userPwd: this.password });
