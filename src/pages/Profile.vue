@@ -36,7 +36,7 @@
         </div>
         <div class="container" v-if="!isModify">
           <h3 class="title">
-            {{ userInfo.userName }}
+            {{ userInfo.nickName }}
           </h3>
           <p class="category">{{ userInfo.joinDate }}</p>
           <div class="content">
@@ -132,7 +132,7 @@ export default {
       this.m_userId = this.userInfo.userId;
       // this.m_pwd = this.userInfo.userPwd;
       // this.m_chkPwd=this.userInfo.userPwd;
-      this.m_nickName = this.userInfo.userName;
+      this.m_nickName = this.userInfo.nickName;
     },
     async modifyUser() {
       let err = true;
@@ -153,7 +153,7 @@ export default {
           ...this.userInfo,
           userId: this.m_userId,
           userPwd: this.m_pwd,
-          userName: this.m_nickName,
+          nickName: this.m_nickName,
         };
         console.log(newUser);
         const res = await userApi.put(

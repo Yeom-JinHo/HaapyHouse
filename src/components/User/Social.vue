@@ -31,13 +31,14 @@
 
 <script>
 import jwt_decode from "jwt-decode";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 export default {
   created() {
     window.startGoogle = this.startGoogle;
   },
   methods: {
     ...mapActions("userStore", ["socialLogin"]),
+    ...mapMutations("msgStore", ["SET_SUCCESS_MSG"]),
     startKakao() {
       console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
       const REST_API_KEY = process.env.VUE_APP_KAKAO_LOGIN_API_KEY;
@@ -52,15 +53,23 @@ export default {
       const requestURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&state=1234`;
       window.location.href = requestURL;
     },
-    startGoogle(googleUser) {
+    async startGoogle(googleUser) {
       console.log(jwt_decode(googleUser.credential));
       const googleUserInfo = jwt_decode(googleUser.credential);
-      this.socialLogin({
+      const type = await this.socialLogin({
         userId: googleUserInfo.email,
         nickName: googleUserInfo.name,
         profileImg: googleUserInfo.picture,
         socialType: "google",
       });
+      let msg;
+      if (type == "join") {
+        msg = "회원가입에 성공하였습니다.";
+      } else if (type == "login") {
+        msg = "로그인에 성공하였습니다.";
+      }
+      this.$router.push("/");
+      this.SET_SUCCESS_MSG({ visible: true, msg });
     },
   },
 };

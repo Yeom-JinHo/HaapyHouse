@@ -2,18 +2,9 @@
   <div class="container">
     <form class="input-form" @submit="onSubmit" @reset="moveBoardList">
       <div>
-        <label for="writer"
-          >작성자
-          <input
-            id="writer"
-            ref="writer"
-            v-model="board.writer"
-            type="text"
-            placeholder="작성자 입력..."
-          />
-        </label>
+        <div class="nickName">작성자 : {{ getNickName }}</div>
       </div>
-
+      <hr />
       <div>
         <label for="title">
           제목
@@ -63,14 +54,13 @@
 
 <script>
 import boardApi from "@/apis/boardApi.js";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "BoardInputForm",
   data() {
     return {
       board: {
-        writer: "",
         title: "",
         description: "",
         no: "",
@@ -105,7 +95,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("msgStore",["SET_WARNING_MSG", "SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
+    ...mapMutations("msgStore", [
+      "SET_WARNING_MSG",
+      "SET_SUCCESS_MSG",
+      "SET_DANGER_MSG",
+    ]),
     moveBoardList() {
       this.$router.push("/board");
     },
@@ -114,12 +108,7 @@ export default {
 
       let err = true;
       let msg = "";
-      !this.board.writer &&
-        ((msg = "작성자 입력해주세요"),
-        (err = false),
-        this.$refs.writer.focus());
-      err &&
-        !this.board.title &&
+      !this.board.title &&
         ((msg = "제목 입력해주세요"),
         (err = false), //
         this.$refs.title.focus());
@@ -144,7 +133,7 @@ export default {
     async registBoard() {
       const newBoard = {
         title: this.board.title,
-        writer: this.board.writer,
+        writer: this.getNickName,
         description: this.board.description,
       };
       const res = await boardApi.post("", newBoard);
@@ -181,6 +170,12 @@ export default {
           });
         }
       } catch {}
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
+    getNickName() {
+      return this.userInfo.nickName;
     },
   },
 };
