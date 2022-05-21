@@ -2,21 +2,39 @@
   <div>
     <h5 id="or-bar">또는</h5>
     <div class="social">
-      <div id="naver_id_login"></div>
       <button @click="startKakao" class="btn" id="kakao-btn">
-        <img src="img/kakao.svg" class="social-icon kakao" />카카오로 시작하기
+        <img src="img/kakao.svg" class="social-icon kakao" />
+        <span>카카오 계정으로 로그인</span>
       </button>
       <button @click="startNaver" class="btn" id="naver-btn">
-        <img src="img/naver.svg" class="social-icon naver" />네이버로 시작하기</button
-      ><button class="btn" id="google-btn">
-        <img src="img/google.svg" class="social-icon google" />구글로 시작하기
+        <img src="img/naver.svg" class="social-icon naver" />
+        <span>네이버 계정으로 로그인</span>
       </button>
+
+      <p>렌더링 테스트</p>
+      <div
+        id="g_id_onload"
+        data-client_id="500435208160-mah8jeah7glj4i1h7i1edf5fip99o5e7.apps.googleusercontent.com"
+        data-callback="startGoogle"
+      ></div>
+      <div class="btn" id="google-container">
+        <div
+          class="g_id_signin"
+          data-type="standard"
+          data-width="300"
+          data-logo_alignment="center"
+        ></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import jwt_decode from "jwt-decode";
 export default {
+  created() {
+    window.startGoogle = this.startGoogle;
+  },
   methods: {
     startKakao() {
       console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
@@ -32,26 +50,45 @@ export default {
       const requestURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&state=1234`;
       window.location.href = requestURL;
     },
+    startGoogle(googleUser) {
+      console.log(jwt_decode(googleUser.credential));
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .social {
-  .btn {
-    width: 100%;
-    font-weight: bold;
+  @mixin customBtn {
+    width: 300px;
+    font-family: "Google Sans", arial, sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    img {
+      margin-right: 10px;
+    }
   }
   #kakao-btn {
+    @include customBtn();
     background-color: #f9e000;
     color: black;
   }
   #naver-btn {
+    @include customBtn();
+
     background-color: #04cf5c;
   }
-  #google-btn {
-    background-color: white;
-    color: black;
+  #google-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+
+    background-color: rgba($color: #000000, $alpha: 0);
+  }
+  .g_id_signin {
+    margin: 0;
   }
 }
 </style>
