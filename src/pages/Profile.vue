@@ -166,7 +166,7 @@ export default {
             visible: true,
             msg: "유저 정보수정에 성공하였습니다.",
           });
-          await this.getUserInfo();
+          await this.getUserInfo(this.userInfo.socialType);
           this.isModify = !this.isModify;
         } else {
           this.SET_DANGER_MSG({

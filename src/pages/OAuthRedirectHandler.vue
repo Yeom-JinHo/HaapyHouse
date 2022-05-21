@@ -17,21 +17,34 @@
 </template>
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 import userApi from "@/apis/userApi.js";
 export default {
   methods: {
     ...mapActions("userStore", ["socialLogin"]),
+    ...mapMutations("msgStore", ["SET_SUCCESS_MSG"]),
+    moveHome(type) {
+      let msg = "";
+      if (type == "join") {
+        msg = "회원가입에 성공하였습니다.";
+      } else if (type == "login") {
+        msg = "로그인에 성공하였습니다.";
+      }
+      this.$router.push("/");
+      this.SET_SUCCESS_MSG({ visible: true, msg });
+    },
     async kakao() {
       const ACCESS_TOKEN = await this.getKakaoAccessToken();
       const kakaoUserInfo = await this.getKakaoInfo(ACCESS_TOKEN);
       console.log(kakaoUserInfo);
-      this.socialLogin({
+      const result = await this.socialLogin({
         userId: kakaoUserInfo.id,
         nickName: kakaoUserInfo.kakao_account.profile.nickname,
         profileImg: kakaoUserInfo.kakao_account.profile.profile_image_url,
         socialType: "kakao",
       });
+
+      this.moveHome(result);
     },
     async getKakaoAccessToken() {
       const authCode = this.$route.query.code;
@@ -59,12 +72,13 @@ export default {
       const ACCESS_TOKEN = await this.getNaverAccessToken();
       const NaverUserInfo = await this.getNaverInfo(ACCESS_TOKEN);
       console.log(NaverUserInfo);
-      this.socialLogin({
+      const result = await this.socialLogin({
         userId: NaverUserInfo.id,
         nickName: NaverUserInfo.nickname,
         profileImg: NaverUserInfo.profile_image,
         socialType: "naver",
       });
+      this.moveHome(result);
     },
     async getNaverAccessToken() {
       const authCode = this.$route.query.code;

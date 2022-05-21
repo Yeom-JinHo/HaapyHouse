@@ -28,15 +28,16 @@ const userStore = {
   actions: {
     async socialLogin({ dispatch }, user) {
       console.log("SocialLogin", user);
-      const res = await userApi.get(
-        "/idCheck?userId=" + user.userId + "&socialType" + user.socialType
-      );
-      // 가입 안된거
-      if (res.status == 200) {
-        dispatch("join", user);
-      } else {
-        // 가입된거임
-        dispatch("login", user);
+      try {
+        const res = await userApi.get(
+          "/idCheck?userId=" + user.userId + "&socialType=" + user.socialType
+        );
+        await dispatch("join", user);
+        return "join";
+      } catch (e) {
+        console.log(e);
+        await dispatch("login", user);
+        return "login";
       }
     },
     async login({ commit, dispatch }, user) {
@@ -50,13 +51,13 @@ const userStore = {
         commit("SET_IS_LOGIN", true);
         commit("SET_IS_LOGIN_ERROR", false);
         sessionStorage.setItem("access-token", token);
-        await dispatch("getUserInfo");
+        await dispatch("getUserInfo", user.socialType);
       } else {
         commit("SET_IS_LOGIN", false);
         commit("SET_IS_LOGIN_ERROR", true);
       }
     },
-    async getUserInfo({ commit }) {
+    async getUserInfo({ commit }, socialType) {
       const token = sessionStorage.getItem("access-token");
       const decode_token = jwt_decode(token);
       console.log(decode_token);
@@ -65,7 +66,10 @@ const userStore = {
           "access-token": token,
         },
       };
-      const res = await userApi.get(`/userinfo/${decode_token.userid}`, config);
+      const res = await userApi.get(
+        `/userinfo/${decode_token.userid}?socialType=${socialType}`,
+        config
+      );
       console.log(res);
       if (res.data.message === "success") {
         commit("SET_USER_INFO", res.data.userInfo);
