@@ -31,11 +31,13 @@
 
 <script>
 import jwt_decode from "jwt-decode";
+import { mapActions } from "vuex";
 export default {
   created() {
     window.startGoogle = this.startGoogle;
   },
   methods: {
+    ...mapActions("userStore", ["socialLogin"]),
     startKakao() {
       console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
       const REST_API_KEY = process.env.VUE_APP_KAKAO_LOGIN_API_KEY;
@@ -52,6 +54,13 @@ export default {
     },
     startGoogle(googleUser) {
       console.log(jwt_decode(googleUser.credential));
+      const googleUserInfo = jwt_decode(googleUser.credential);
+      this.socialLogin({
+        userId: googleUserInfo.email,
+        nickName: googleUserInfo.name,
+        profileImg: googleUserInfo.picture,
+        socialType: "google",
+      });
     },
   },
 };

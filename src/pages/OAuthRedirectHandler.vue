@@ -8,7 +8,7 @@
       <div class="container">
         <div class="col-md-5 ml-auto mr-auto">
           <div slot="header" class="logo-container">
-            {{ socialType }} 로그인중!
+            {{ this.$route.params.socialType }} 로그인중!
           </div>
         </div>
       </div>
@@ -20,26 +20,18 @@ import axios from "axios";
 import { mapActions } from "vuex";
 import userApi from "@/apis/userApi.js";
 export default {
-  data() {
-    return {
-      socialType: "",
-    };
-  },
   methods: {
-    ...mapActions("userStore", ["login", "join"]),
+    ...mapActions("userStore", ["socialLogin"]),
     async kakao() {
       const ACCESS_TOKEN = await this.getKakaoAccessToken();
       const kakaoUserInfo = await this.getKakaoInfo(ACCESS_TOKEN);
       console.log(kakaoUserInfo);
-      const res = await userApi.get(
-        "/idCheck?userId=" + kakaoUserInfo.id + "&socialType=kakao"
-      );
-      // 가입 안된거
-      if (res.status == 200) {
-      } else {
-        // 가입된거임
-      }
-      console.log(res);
+      this.socialLogin({
+        userId: kakaoUserInfo.id,
+        nickName: kakaoUserInfo.kakao_account.profile.nickname,
+        profileImg: kakaoUserInfo.kakao_account.profile.profile_image_url,
+        socialType: "kakao",
+      });
     },
     async getKakaoAccessToken() {
       const authCode = this.$route.query.code;
@@ -67,15 +59,12 @@ export default {
       const ACCESS_TOKEN = await this.getNaverAccessToken();
       const NaverUserInfo = await this.getNaverInfo(ACCESS_TOKEN);
       console.log(NaverUserInfo);
-      const res = await userApi.get(
-        "/idCheck?userId=" + NaverUserInfo.id + "&socialType=naver"
-      );
-      // 가입 안된거
-      if (res.status == 200) {
-      } else {
-        // 가입된거임
-      }
-      console.log(res);
+      this.socialLogin({
+        userId: NaverUserInfo.id,
+        nickName: NaverUserInfo.nickname,
+        profileImg: NaverUserInfo.profile_image,
+        socialType: "naver",
+      });
     },
     async getNaverAccessToken() {
       const authCode = this.$route.query.code;
@@ -104,11 +93,11 @@ export default {
     },
   },
   async mounted() {
-    this.socialType = this.$route.params.socialType;
-    console.log(this.socialType);
-    if (this.socialType == "kakao") {
+    const socialType = this.$route.params.socialType;
+    console.log(socialType);
+    if (socialType == "kakao") {
       this.kakao();
-    } else if (this.socialType == "naver") {
+    } else if (socialType == "naver") {
       this.naver();
     }
   },

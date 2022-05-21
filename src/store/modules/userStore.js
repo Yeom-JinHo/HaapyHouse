@@ -26,6 +26,19 @@ const userStore = {
     },
   },
   actions: {
+    async socialLogin({ dispatch }, user) {
+      console.log("SocialLogin", user);
+      const res = await userApi.get(
+        "/idCheck?userId=" + user.userId + "&socialType" + user.socialType
+      );
+      // 가입 안된거
+      if (res.status == 200) {
+        dispatch("join", user);
+      } else {
+        // 가입된거임
+        dispatch("login", user);
+      }
+    },
     async login({ commit }, user) {
       console.log("userSotre LOGIN", user);
       console.log(JSON.stringify(user));
