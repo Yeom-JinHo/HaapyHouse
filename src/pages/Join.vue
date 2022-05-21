@@ -152,17 +152,17 @@ export default {
         await this.join({
           userId: this.id,
           userPwd: this.password,
-          userName: this.nickname,
+          nickName: this.nickname,
           socialType: "general",
         });
         console.log("join 후 isLogin 상태", this.isLogin);
         if (this.isLogin) {
           await this.getUserInfo();
           this.$router.push("/");
-          this.SET_SUCCESS_MSG({
-            visible: true,
-            msg: "회원가입에 성공하였습니다.",
-          });
+          // this.SET_SUCCESS_MSG({
+          //   visible: true,
+          //   msg: "회원가입에 성공하였습니다.",
+          // });
         } else {
           this.SET_DANGER_MSG({
             visible: true,

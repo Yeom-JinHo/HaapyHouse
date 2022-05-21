@@ -39,7 +39,7 @@ const userStore = {
         dispatch("login", user);
       }
     },
-    async login({ commit }, user) {
+    async login({ commit, dispatch }, user) {
       console.log("userSotre LOGIN", user);
       console.log(JSON.stringify(user));
       const res = await userApi.post("/login", user);
@@ -50,6 +50,7 @@ const userStore = {
         commit("SET_IS_LOGIN", true);
         commit("SET_IS_LOGIN_ERROR", false);
         sessionStorage.setItem("access-token", token);
+        await dispatch("getUserInfo");
       } else {
         commit("SET_IS_LOGIN", false);
         commit("SET_IS_LOGIN_ERROR", true);

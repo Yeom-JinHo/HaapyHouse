@@ -101,7 +101,6 @@ export default {
         try {
           await this.login({ userId: this.id, userPwd: this.password });
           if (this.isLogin) {
-            await this.getUserInfo();
             this.$router.push("/");
             this.SET_SUCCESS_MSG({
               visible: true,
