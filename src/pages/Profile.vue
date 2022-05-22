@@ -35,9 +35,30 @@
           <img src="img/ryan.jpg" alt="" />
         </div>
         <div class="container" v-if="!isModify">
-          <h3 class="title">
-            {{ userInfo.nickName }}
-          </h3>
+          <div id="userinfo">
+            <img
+              v-if="userInfo.socialType == 'kakao'"
+              class="social-icon kakao"
+              src="img/kakao.svg"
+              alt="kakao"
+            />
+            <img
+              v-if="userInfo.socialType == 'naver'"
+              class="social-icon naver"
+              src="img/naver.svg"
+              alt="naver"
+            />
+            <img
+              v-if="userInfo.socialType == 'google'"
+              class="social-icon google"
+              src="img/google.svg"
+              alt="google"
+            />
+            <h3 class="title">
+              {{ userInfo.nickName }}
+            </h3>
+          </div>
+
           <p class="category">{{ userInfo.joinDate }}</p>
           <div class="content">
             <div class="social-description">
@@ -205,7 +226,28 @@ export default {
 #custom-section {
   min-height: 77vh;
 }
-
+#userinfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .social-icon {
+    padding: 3px;
+    margin-top: 30px;
+    margin-right: 10px;
+  }
+  .kakao {
+    background-color: #f9e000;
+  }
+  .naver {
+    background-color: #04cf5c;
+  }
+  .google {
+    background-color: white;
+  }
+  .title {
+    margin: 0;
+  }
+}
 // .btn {
 // background-color: white;
 // }

@@ -1,24 +1,23 @@
 <template>
   <div class="page-header clear-filter" filter-color="orange">
-    <div
-      class="page-header-image"
-      style="background-image: url('img/login.jpg')"
-    ></div>
-    <div class="content">
-      <div class="container">
-        <div class="col-md-5 ml-auto mr-auto">
-          <div slot="header" class="logo-container">
-            {{ this.$route.params.socialType }} 로그인중!
-          </div>
-        </div>
-      </div>
+    <div class="page-header-image">123123</div>
+
+    <div id="oauth-container" class="container">
+      <img
+        class="loader_refresh"
+        src="../../public/img/spinner.png"
+        alt="스피너"
+      />
+      <span slot="header" class="logo-container">
+        {{ this.$route.params.socialType }}로 로그인중!
+      </span>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 import { mapActions, mapMutations } from "vuex";
-import userApi from "@/apis/userApi.js";
+
 export default {
   methods: {
     ...mapActions("userStore", ["socialLogin"]),
@@ -126,7 +125,21 @@ export default {
     transform: rotate(360deg);
   }
 }
+#oauth-container {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .loader_refresh {
-  animation: spin 2s linear infinite;
+  display: inline-block;
+  animation: spin 4s linear infinite;
+  width: 5rem;
+}
+.logo-container {
+  font-size: 3rem;
+}
+.page-header-image {
+  background-image: url("../../public/img/korea.jpg");
 }
 </style>
