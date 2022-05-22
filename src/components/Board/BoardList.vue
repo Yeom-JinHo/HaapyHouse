@@ -4,7 +4,7 @@
       <div class="search-bar">
         <select v-model="searchType" name="search-type" id="search-type">
           <option :value="null">검색옵션</option>
-          <option value="id">작성자</option>
+          <option value="nickName">작성자</option>
           <option value="title">제목</option>
         </select>
         <input
@@ -64,6 +64,7 @@ export default {
   },
   computed: {
     ...mapState("userStore", ["userInfo"]),
+    ...mapState("msgStore", ["successMsg"]),
     startPage: function () {
       return (this.nowPage - 1) * this.defaultPerPage;
     },
@@ -87,8 +88,9 @@ export default {
     async search() {
       let params = "";
       if (this.searchType != null) {
-        params = this.searchType == "id" ? "/?id=" : "/?title=";
+        params = this.searchType == "nickName" ? "/?nickName=" : "/?title=";
         params += this.searchVal;
+        this.SET_SUCCESS_MSG({ visible: false });
       }
       console.log(params);
       try {
@@ -96,10 +98,11 @@ export default {
         // console.log(res);
         if (res.status == 200) {
           this.boards = res.data.reverse();
-          this.SET_SUCCESS_MSG({
-            visible: true,
-            msg: `검색결과가 ${this.boards.length}건 있어요!`,
-          });
+          !this.successMsg.visible &&
+            this.SET_SUCCESS_MSG({
+              visible: true,
+              msg: `검색결과가 ${this.boards.length}건 있어요!`,
+            });
           console.log(this.boards);
         } else if (res.status == 204) {
           this.boards = [];

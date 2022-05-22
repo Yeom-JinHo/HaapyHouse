@@ -11,6 +11,7 @@
       <div
         class="header__right"
         v-if="
+          userInfo &&
           board.userId == userInfo.userId &&
           board.socialType == userInfo.socialType
         "
