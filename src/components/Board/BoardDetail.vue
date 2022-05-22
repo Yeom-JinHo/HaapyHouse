@@ -5,10 +5,16 @@
     </h1>
     <div class="detail__header">
       <div class="header__left">
-        <h5 class="detail__writer">작성자 : {{ board.writer }}</h5>
+        <h5 class="detail__writer">작성자 : {{ board.nickName }}</h5>
         <h5 class="detail__regDate">작성일자 : {{ getDate }}</h5>
       </div>
-      <div class="header__right">
+      <div
+        class="header__right"
+        v-if="
+          board.userId == userInfo.userId &&
+          board.socialType == userInfo.socialType
+        "
+      >
         <button @click="moveModifiy" id="btn--modify" class="btn btn-simple">
           수정
         </button>
@@ -30,7 +36,7 @@
 <script>
 import boardApi from "@/apis/boardApi.js";
 import Comment from "@/components/Comment/Comment.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   components: {
@@ -41,13 +47,16 @@ export default {
       board: {
         no: "",
         title: "",
-        writer: "",
+        userId: "",
+        nickName: "",
+        socialType: "",
         description: "",
         regDate: "",
       },
     };
   },
   computed: {
+    ...mapState("userStore", ["userInfo"]),
     getDate() {
       let date = this.board.regDate;
       let year = date.slice(0, 4) + "년 ";
@@ -82,7 +91,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations("msgStore",["SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
+    ...mapMutations("msgStore", ["SET_SUCCESS_MSG", "SET_DANGER_MSG"]),
     async deleteBoard() {
       try {
         const res = await boardApi.delete("/?no=" + this.board.no);
@@ -156,7 +165,7 @@ export default {
   border-bottom: 1px solid gainsboro;
 }
 
-.writer,
+.nickName,
 .regDate {
   display: flex;
   justify-content: end;

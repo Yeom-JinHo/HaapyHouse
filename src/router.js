@@ -106,6 +106,17 @@ export default new Router({
         {
           path: "regist",
           component: BoardRegist,
+          beforeEnter: function (to, from, next) {
+            if (store.state.userStore.isLogin) {
+              next();
+            } else {
+              next("/");
+              store.state.msgStore.dangerMsg = {
+                visible: true,
+                msg: "로그인을 해주세요",
+              };
+            }
+          },
         },
         {
           path: "modify/:no",

@@ -17,7 +17,9 @@
           검색
         </button>
       </div>
-      <router-link class="regist-btn" to="/board/regist">글쓰기</router-link>
+      <button @click="moveRegist" class="btn btn-simple" id="btn--regist">
+        글쓰기
+      </button>
     </div>
 
     <div class="table-container">
@@ -45,7 +47,7 @@
 import boardApi from "@/apis/boardApi.js";
 import Pagination from "@/components/Pagination.vue";
 import BoardListItem from "@/components/Board/BoardListItem.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 export default {
   components: {
     Pagination,
@@ -61,6 +63,7 @@ export default {
     };
   },
   computed: {
+    ...mapState("userStore", ["userInfo"]),
     startPage: function () {
       return (this.nowPage - 1) * this.defaultPerPage;
     },
@@ -97,6 +100,7 @@ export default {
             visible: true,
             msg: `검색결과가 ${this.boards.length}건 있어요!`,
           });
+          console.log(this.boards);
         } else if (res.status == 204) {
           this.boards = [];
           this.SET_INFO_MSG({
@@ -120,12 +124,23 @@ export default {
         this.search();
       }
     },
+    moveRegist() {
+      if (!this.userInfo) {
+        this.SET_WARNING_MSG({
+          visible: true,
+          msg: "로그인을 먼저 진행해주세요",
+        });
+      } else {
+        this.$router.push("board/regist");
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#btn--search {
+#btn--search,
+#btn--regist {
   height: 2rem;
   font-size: 1.25rem;
   display: flex;
@@ -135,7 +150,8 @@ export default {
   margin-left: 10px;
 }
 
-#btn--search:hover {
+#btn--search:hover,
+#btn--regist:hover {
   color: white;
   background-color: #f96332;
 }
@@ -162,9 +178,9 @@ export default {
 .pagination {
   justify-content: center;
 }
-.regist-btn {
-  font-size: 1.5rem;
-  margin-right: 1vw;
-  margin-bottom: 1vh;
-}
+// .regist-btn {
+//   font-size: 1.5rem;
+//   margin-right: 1vw;
+//   margin-bottom: 1vh;
+// }
 </style>

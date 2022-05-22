@@ -133,7 +133,9 @@ export default {
     async registBoard() {
       const newBoard = {
         title: this.board.title,
-        writer: this.getNickName,
+        nickName: this.getNickName,
+        socialType: this.userInfo.socialType,
+        userId: this.userInfo.userId,
         description: this.board.description,
       };
       const res = await boardApi.post("", newBoard);

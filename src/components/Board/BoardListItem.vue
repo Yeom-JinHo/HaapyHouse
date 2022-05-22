@@ -7,7 +7,7 @@
     >
       <td>{{ startInd + index + 1 }}</td>
       <td>{{ board.title }}</td>
-      <td>{{ board.writer }}</td>
+      <td>{{ board.nickName }}</td>
       <td>{{ board.regDate }}</td>
     </tr>
   </tbody>
