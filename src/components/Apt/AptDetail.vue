@@ -19,24 +19,64 @@
                 @click="sort('dealDate')"
               >
                 거래일자
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
               <th
-                :class="{ sorted: sortedType == 'dealAmount' }"
-                @click="sort('dealAmount')"
+                :class="{ sorted: sortedType == 'dealAmout' }"
+                @click="sort('dealAmout')"
               >
                 거래금액
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
               <th
                 :class="{ sorted: sortedType == 'area' }"
                 @click="sort('area')"
               >
                 면적
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
               <th
                 :class="{ sorted: sortedType == 'floor' }"
                 @click="sort('floor')"
               >
                 층수
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
             </tr>
           </thead>
@@ -48,7 +88,7 @@
               <td>
                 {{ apt.dealYear }}년 {{ apt.dealMonth }}월 {{ apt.dealDay }}일
               </td>
-              <td>{{ apt.dealAmout }}</td>
+              <td>{{ getWon(apt.dealAmout) }}</td>
               <td>{{ apt.area }}</td>
               <td>{{ apt.floor }}층</td>
             </tr>
@@ -76,7 +116,19 @@ export default {
       "/apt/deal/?aptCode=" + this.$route.params.aptCode
     );
     console.log(res.data);
-    this.aptDealList = res.data;
+    if (res.status == 200) {
+      this.SET_SUCCESS_MSG({
+        visible: true,
+        msg: `${res.data.length}개의 거래 정보가 있습니다.`,
+      });
+      const apts = res.data.map((apt) => {
+        return {
+          ...apt,
+          dealAmout: +apt.dealAmout.split(",").join(""),
+        };
+      });
+      this.aptDealList = apts;
+    }
   },
   methods: {
     ...mapMutations("msgStore", ["SET_INFO_MSG", "SET_SUCCESS_MSG"]),
@@ -113,12 +165,19 @@ export default {
         }으로 정렬되었습니다.`,
       });
     },
+    getWon(price) {
+      if (price >= 10000) {
+        let uk = Math.floor(price / 10000);
+        let chun = price % 10000;
+        if (chun == 0) return uk + "억";
+
+        return uk + "억" + chun + "만원";
+      } else {
+        return price + "만원";
+      }
+    },
   },
 };
 </script>
 
-<style>
-.sorted {
-  color: red;
-}
-</style>
+<style></style>

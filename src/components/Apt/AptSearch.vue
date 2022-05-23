@@ -71,19 +71,49 @@
                 @click="sort('aptName')"
               >
                 아파트이름
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
               <th class="text-center">주소</th>
               <th
-                :class="{ sorted: sortedType == 'buildYear' }"
+                :class="{ sorted: sortedType == 'buildYear', arrow }"
                 @click="sort('buildYear')"
               >
                 건축연도
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
               <th
                 :class="{ sorted: sortedType == 'recentPrice' }"
                 @click="sort('recentPrice')"
               >
                 최근거래금액
+                <img
+                  :class="{ descSort: !descSort }"
+                  src="/img/up.svg"
+                  alt=""
+                />
+                <img
+                  :class="{ descSort: descSort }"
+                  src="/img/down.svg"
+                  alt=""
+                />
               </th>
             </tr>
           </thead>
@@ -101,7 +131,7 @@
                 {{ apt.jibun }}
               </td>
               <td>{{ apt.buildYear }}</td>
-              <td>{{ apt.recentPrice }}</td>
+              <td>{{ getWon(apt.recentPrice) }}</td>
             </tr>
           </tbody>
         </table>
@@ -154,10 +184,6 @@ export default {
     },
   },
   async created() {
-    this.SET_INFO_MSG({
-      visible: true,
-      msg: "아직 서비스가 서울만 지원하고 있어요!",
-    });
     const res = await aptApi.get("/sido");
     this.sidoArr = res.data;
     if (!!this.sidoCode) {
@@ -180,14 +206,33 @@ export default {
     async setGugun() {
       const res = await aptApi.get("/gugun?sido=" + this.sidoCode);
       this.gugunArr = res.data;
+      this.gugunData = this.gugunCode || null;
+      this.dongData = this.dongCode || null;
     },
     async setDong() {
       const res = await aptApi.get("/dong?gugun=" + this.gugunCode);
-      this.dongArr = res.data;
+      console.log(res.data);
+      const dongs = res.data.filter((apt) => apt.dongName != null);
+      this.dongArr = dongs;
+      this.dongData = this.dongCode || null;
     },
     async searchApt() {
       const res = await aptApi.get("/apt?dong=" + this.dongCode);
-      this.searchAptList = res.data;
+      const apts = res.data.map((apt) => {
+        return {
+          ...apt,
+          recentPrice: +apt.recentPrice.split(",").join(""),
+        };
+      });
+      this.searchAptList = apts;
+      if (res.data.length == 0) {
+        this.SET_INFO_MSG({ visible: true, msg: "검색 결과가 없습니다." });
+      } else {
+        this.SET_SUCCESS_MSG({
+          visible: true,
+          msg: `${res.data.length}건의 검색 결과가 있습니다.`,
+        });
+      }
     },
     moveDetail(code) {
       this.$router.push("/apt/detail/" + code);
@@ -213,12 +258,37 @@ export default {
         }으로 정렬되었습니다.`,
       });
     },
+    getWon(price) {
+      if (price >= 10000) {
+        let uk = Math.floor(price / 10000);
+        let chun = price % 10000;
+        if (chun == 0) return uk + "억";
+
+        return uk + "억" + chun + "만원";
+      } else {
+        return price + "만원";
+      }
+    },
   },
 };
 </script>
 
-<style>
+<style lang="scss">
+th {
+  img {
+    display: none;
+  }
+}
 .sorted {
-  color: red;
+  text-decoration: underline;
+  font-weight: 700;
+  * {
+    display: none;
+  }
+  .descSort {
+    display: inline;
+    width: 1em;
+    height: 1em;
+  }
 }
 </style>
