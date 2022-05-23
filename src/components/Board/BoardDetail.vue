@@ -30,7 +30,7 @@
         {{ board.description }}
       </h2>
     </div>
-    <comment></comment>
+    <comment :noticeNo="board.no"></comment>
   </div>
 </template>
 
@@ -72,8 +72,10 @@ export default {
   async created() {
     try {
       const res = await boardApi.get(`?no=${this.$route.params.no}`);
+      console.log("GET_DETAIL", res.data);
       if (res.status == 200) {
         this.board = { ...res.data[0] };
+        console.log(this.board);
       } else if (res.status == 204) {
         this.$router.push("/board");
         this.SET_DANGER_MSG({

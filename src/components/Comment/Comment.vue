@@ -1,73 +1,56 @@
 <template>
-  <div class="comment">
+  <div class="comment-compo">
     <h2>댓글</h2>
     <comment-item
-      v-for="(com, index) in dummyCom"
+      v-for="(com, index) in commentList"
       :key="index"
       :comment="com"
-    ></comment-item>
-    <div class="input-header__userid">짱짱맨</div>
-    <input class="comment__input" type="text" />
-    <div type="button" id="comment--regist" class="btn btn-simple btn-primary">
-      등록
-    </div>
+    >
+    </comment-item>
+
+    <!-- 0뎁스 댓글 게시글에 바로 댓글! -->
+    <comment-input
+      :noticeNo="noticeNo"
+      :commentdepth="0"
+      :commentgroup="0"
+    ></comment-input>
   </div>
 </template>
 
 <script>
 import CommentItem from "./CommentItem.vue";
+import CommentInput from "./CommentInput.vue";
+import commentApi from "@/apis/commentApi.js";
+
+import { mapMutations, mapState } from "vuex";
 export default {
-  components: { CommentItem },
+  props: ["noticeNo"],
+  components: { CommentItem, CommentInput },
   data() {
-    return {
-      dummyCom: [
-        {
-          description:
-            "개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ개웃기네 ㅋㅋ",
-          writer: "짱짱맨",
-          regDate: "2022-05-18T10:26:02",
-        },
-        {
-          description: "개웃기네 ㅋㅋ",
-          writer: "짱짱맨",
-          regDate: "2022-05-18T10:26:02",
-        },
-        {
-          description: "개웃기네 ㅋㅋ",
-          writer: "짱짱맨",
-          regDate: "2022-05-18T10:26:02",
-        },
-        {
-          description: "개웃기네 ㅋㅋ",
-          writer: "짱짱맨",
-          regDate: "2022-05-18T10:26:02",
-        },
-      ],
-    };
+    return {};
+  },
+  computed: {
+    ...mapState("commentStore", ["commentList"]),
+  },
+  methods: {
+    ...mapMutations("commentStore", ["SET_COMMENT_LIST"]),
+  },
+  async created() {
+    try {
+      const res = await commentApi.get(`${this.$route.params.no}`);
+      console.log("GET_COMMENT:", res);
+      if (res.status == 200) {
+        this.SET_COMMENT_LIST([...res.data]);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.comment {
+.comment-compo {
   padding: 1vw 1vh;
-
-  &__input {
-    width: 100%;
-    height: 3rem;
-    font-size: 1.5rem;
-  }
-}
-#comment--regist {
-  width: 5vw;
-  float: right;
-}
-#comment--regist:hover {
-  background-color: #f96332;
-  color: white;
-}
-
-.input-header__userid {
-  font-size: 1.5rem;
 }
 </style>
