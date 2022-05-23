@@ -48,7 +48,7 @@
               <td>
                 {{ apt.dealYear }}년 {{ apt.dealMonth }}월 {{ apt.dealDay }}일
               </td>
-              <td>{{ apt.dealAmount }}</td>
+              <td>{{ apt.dealAmout }}</td>
               <td>{{ apt.area }}</td>
               <td>{{ apt.floor }}층</td>
             </tr>
