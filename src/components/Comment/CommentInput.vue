@@ -2,7 +2,12 @@
   <div class="new-comment">
     <div class="new-comment__userid">{{ userInfo.nickName }}</div>
     <div class="input-container">
-      <input class="new-comment__input" type="text" v-model="comment" />
+      <input
+        class="new-comment__input"
+        type="text"
+        v-model="comment"
+        ref="newCommentInput"
+      />
       <div
         type="button"
         id="new-comment--regist"
@@ -30,7 +35,17 @@ export default {
   },
   methods: {
     ...mapMutations("commentStore", ["SET_COMMENT_LIST"]),
+    ...mapMutations("msgStore", [
+      "SET_SUCCESS_MSG",
+      "SET_WARNING_MSG",
+      "SET_DANGER_MSG",
+    ]),
     async registComment() {
+      if (!this.comment) {
+        this.SET_WARNING_MSG({ visible: true, msg: "댓글을 입력해주세요" });
+        this.$refs.newCommentInput.focus();
+        return;
+      }
       let newComment = {
         nickName: this.userInfo.nickName,
         userId: this.userInfo.userId,
