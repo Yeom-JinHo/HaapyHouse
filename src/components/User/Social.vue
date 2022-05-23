@@ -35,10 +35,16 @@ import { mapActions, mapMutations } from "vuex";
 export default {
   created() {
     window.startGoogle = this.startGoogle;
+    this.loadScript();
   },
   methods: {
     ...mapActions("userStore", ["socialLogin"]),
     ...mapMutations("msgStore", ["SET_SUCCESS_MSG"]),
+    async loadScript() {
+      let scriptEl = document.createElement("script");
+      scriptEl.setAttribute("src", "https://accounts.google.com/gsi/client");
+      document.getElementsByTagName("head")[0].appendChild(scriptEl);
+    },
     startKakao() {
       console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
       const REST_API_KEY = process.env.VUE_APP_KAKAO_LOGIN_API_KEY;
