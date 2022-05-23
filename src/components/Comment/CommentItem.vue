@@ -9,7 +9,7 @@
       <div class="comment-item">
         <div class="comment-item__header">
           <div class="header__left">
-            <img id="profile" src="/img/korea.jpg" lt="" />
+            <img id="profile" src="/img/ssafy.png" lt="" />
             <h3 class="header__writer">{{ comment.nickName }}</h3>
             <h5>{{ getDate }}</h5>
           </div>
@@ -124,11 +124,11 @@ export default {
       };
       const res = await commentApi.put("/delete", deleteComment);
       if (res.status == 200) {
-        this.SET_SUCCESS_MSG({ visible: true, msg: "글이 삭제되었습니다." });
+        this.SET_SUCCESS_MSG({ visible: true, msg: "댓글이 삭제되었습니다." });
       } else {
         this.SET_DANGER_MSG({
           visible: true,
-          msg: "글 삭제에 실패하였습니다.",
+          msg: "댓글 삭제에 실패하였습니다.",
         });
       }
       this.SET_COMMENT_LIST(res.data);
@@ -153,12 +153,15 @@ export default {
         console.log(newComment, this.comment);
         const res = await commentApi.put("", newComment);
         if (res.status == 200) {
-          this.SET_SUCCESS_MSG({ visible: true, msg: "글이 수정되었습니다." });
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: "댓글이 수정되었습니다.",
+          });
           this.isModify = false;
         } else {
           this.SET_DANGER_MSG({
             visible: true,
-            msg: "글 수정에 실패하였습니다.",
+            msg: "댓글 수정에 실패하였습니다.",
           });
         }
         this.SET_COMMENT_LIST(res.data);

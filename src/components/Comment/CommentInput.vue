@@ -57,6 +57,15 @@ export default {
       };
       console.log("COMMENT_REIGST", this.commentdepth, newComment);
       const res = await commentApi.post("", newComment);
+      if (res.status == 200) {
+        this.SET_SUCCESS_MSG({ visible: true, msg: "댓글이 등록되었습니다." });
+        this.isModify = false;
+      } else {
+        this.SET_DANGER_MSG({
+          visible: true,
+          msg: "댓글 등록에 실패하였습니다.",
+        });
+      }
       this.SET_COMMENT_LIST(res.data);
       this.comment = "";
     },

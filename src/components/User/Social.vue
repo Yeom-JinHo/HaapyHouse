@@ -10,8 +10,6 @@
         <img src="img/naver.svg" class="social-icon naver" />
         <span>네이버 계정으로 로그인</span>
       </button>
-
-      <p>렌더링 테스트</p>
       <div
         id="g_id_onload"
         data-client_id="500435208160-mah8jeah7glj4i1h7i1edf5fip99o5e7.apps.googleusercontent.com"

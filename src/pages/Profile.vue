@@ -32,7 +32,8 @@
         </div>
 
         <div class="photo-container">
-          <img src="img/ryan.jpg" alt="" />
+          <!-- <img src="img/ryan.jpg" alt="" /> -->
+          <img :src="userInfo.profileImg" alt="" />
         </div>
         <div class="container" v-if="!isModify">
           <div id="userinfo">

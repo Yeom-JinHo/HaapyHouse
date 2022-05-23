@@ -53,7 +53,6 @@
               {{ dong.dongName }}
             </option>
           </select>
-          <button @click="test">테스트</button>
         </div>
         <kakao-map :aptList="searchAptList" />
         <table class="table mt-2">
@@ -178,22 +177,6 @@ export default {
       "SET_DONG_CODE",
     ]),
     ...mapMutations("msgStore", ["SET_INFO_MSG", "SET_SUCCESS_MSG"]),
-    async test() {
-      const res = await aptApi.get("/apt?dong=" + 1171010200);
-      console.log("SEARCH TEST", res.data);
-      const newData = res.data.reduce(function (acc, current) {
-        if (
-          acc.findIndex(({ aptName }) => aptName === current.aptName) === -1
-        ) {
-          acc.push(current);
-        }
-        return acc;
-      }, []);
-      console.log("NEW", newData);
-      // this.searchAptList = res.data;
-      this.searchAptList = newData;
-    },
-
     async setGugun() {
       const res = await aptApi.get("/gugun?sido=" + this.sidoCode);
       this.gugunArr = res.data;
