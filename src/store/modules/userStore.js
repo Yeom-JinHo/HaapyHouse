@@ -43,7 +43,11 @@ const userStore = {
     async login({ commit, dispatch }, user) {
       console.log("userSotre LOGIN", user);
       console.log(JSON.stringify(user));
-      const res = await userApi.post("/login", user);
+      const res = await userApi.post(
+        "/login",
+        user, //
+        { withCredentials: true }
+      );
       console.log(res);
       if (res.data.message === "success") {
         console.log("resDat", res.data.message);

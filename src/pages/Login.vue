@@ -97,7 +97,11 @@ export default {
       } else {
         //여기서 로그인 처리
         try {
-          await this.login({ userId: this.id, userPwd: this.password });
+          await this.login({
+            userId: this.id,
+            userPwd: this.password,
+            socialType: "general",
+          });
           if (this.isLogin) {
             this.$router.push("/");
             this.SET_SUCCESS_MSG({
