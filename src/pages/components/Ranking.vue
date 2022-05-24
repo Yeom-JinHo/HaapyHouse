@@ -1,17 +1,22 @@
 <template>
   <div class="container">
     <div class="ranking">
-      <div class="ranking-title">순위표</div>
+      <div class="ranking-title">
+        순위표 <button @click="test">순위 업데이트</button>
+      </div>
       <div class="first" data-aos="fade-up">
         <div class="tri">
           <div class="triangle"></div>
           <div class="tri-cnt">1</div>
         </div>
-        <div class="title">{{ dummy[0].title }}</div>
+        <div class="title">
+          {{ rankingList.length > 0 ? rankingList[0].aptName : "" }}
+        </div>
       </div>
-      <ul>
+
+      <ul v-if="rankingList.length > 0">
         <li
-          v-for="(item, index) in dummy.slice(1)"
+          v-for="(item, index) in rankingList.slice(1)"
           :key="index"
           data-aos="fade-up"
           data-aos-easing="ease-out-back"
@@ -19,16 +24,19 @@
         >
           <!-- <div class="left"> -->
           <span class="number">{{ index + 2 }}</span>
-          <span class="aptName">{{ item.title }}</span>
+          <span class="aptName">{{ item.aptName }}</span>
           <!-- </div> -->
           <!-- <div class="right"> -->
-          <i v-if="item.count > 0" class="now-ui-icons arrows-1_minimal-up"></i>
           <i
-            v-else-if="item.count < 0"
+            v-if="item.rankChange > 0"
+            class="now-ui-icons arrows-1_minimal-up"
+          ></i>
+          <i
+            v-else-if="item.rankChange < 0"
             class="now-ui-icons arrows-1_minimal-down"
           ></i>
           <i v-else class="now-ui-icons ui-1_simple-delete"></i>
-          <span class="count">{{ item.count }}</span>
+          <span class="count">{{ item.rankChange }}</span>
           <!-- </div> -->
         </li>
       </ul>
@@ -37,22 +45,24 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      dummy: [
-        { title: "한빛아파트", count: -1 },
-        { title: "**아파트", count: 1 },
-        { title: "!!아파트", count: 0 },
-        { title: "()아파트", count: 3 },
-        { title: "{}아파트", count: 3 },
-        { title: "**아파트", count: 1 },
-        { title: "!!아파트", count: 0 },
-        { title: "()아파트", count: 3 },
-        { title: "{}아파트", count: 3 },
-        { title: "**아파트", count: 1 },
-      ],
+      rankingList: [],
     };
+  },
+  async created() {
+    const res = await axios.get("http://localhost:9999/count/search");
+    console.log("ranking", res);
+    this.rankingList = res.data;
+  },
+  methods: {
+    async test() {
+      const res = await axios.get("http://localhost:9999/count/update");
+      console.log("update", res);
+      this.rankingList = res.data;
+    },
   },
 };
 </script>
@@ -123,14 +133,14 @@ export default {
   background-color: royalblue;
 }
 .ranking li .number {
-  flex-grow: 4;
+  flex-basis: 4vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .ranking li .aptName {
-  flex-grow: 32;
+  flex: 10;
   display: flex;
   align-items: center;
 }
