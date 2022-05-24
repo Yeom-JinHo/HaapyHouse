@@ -1,11 +1,14 @@
 <template>
   <div>
     <div class="page-header clear-filter" filter-color="orange">
-      <parallax
+      <!-- <parallax
         class="page-header-image"
         style="background-image: url('img/korea.jpg')"
       >
-      </parallax>
+      </parallax> -->
+      <video autoplay loop muted="muted" id="bgvid" class="page-header-image">
+        <source src="/videos/bg.mp4" type="video/mp4" />
+      </video>
       <div class="container">
         <div class="content-center brand" id="home-info">
           <img class="n-logo" src="img/ssafy.png" alt="" />
@@ -13,7 +16,8 @@
           <vue-typer
             :text="[
               '최강 광주 4반 최종 관통 프로젝트',
-              '우리도 집을 살 수 있을까요?',
+              `우리도 한국에서 
+집을 살 수 있을까요?`,
             ]"
             :repeat="0"
             :shuffle="false"
@@ -55,7 +59,7 @@ export default {
   name: "index",
   bodyClass: "index-page",
   components: {
-    Parallax,
+    // Parallax,
     CarouselSection,
     TeamInfo,
     Ranking,
@@ -66,5 +70,10 @@ export default {
 .vue-typer .custom.char {
   color: white;
   font-size: 3em;
+}
+#bgvid {
+  object-fit: cover;
+  height: 100vh;
+  width: 100vw;
 }
 </style>
