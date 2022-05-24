@@ -16,6 +16,7 @@ import BoardModify from "./components/Board/BoardModify.vue";
 import AptSearch from "./components/Apt/AptSearch.vue";
 import AptDetail from "./components/Apt/AptDetail.vue";
 import OauthRedirectHandler from "./pages/OAuthRedirectHandler.vue";
+import News from "./pages/News.vue";
 
 import store from "@/store/index.js";
 
@@ -132,6 +133,18 @@ export default new Router({
       path: "/oauth/:socialType",
       components: {
         default: OauthRedirectHandler,
+        header: MainNavbar,
+        footer: MainFooter,
+      },
+      props: {
+        header: { colorOnScroll: 400 },
+        footer: { backgroundColor: "black" },
+      },
+    },
+    {
+      path: "/news",
+      components: {
+        default: News,
         header: MainNavbar,
         footer: MainFooter,
       },

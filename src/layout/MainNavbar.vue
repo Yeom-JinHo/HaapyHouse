@@ -27,7 +27,12 @@
           <p class="inline">아파트 살펴보기</p>
         </router-link>
       </li>
-
+      <li class="nav-item">
+        <router-link class="nav-link" to="/news">
+          <i class="now-ui-icons text_caps-small"></i>
+          <p class="inline">뉴스</p>
+        </router-link>
+      </li>
       <li class="nav-item">
         <router-link class="nav-link" to="/board">
           <i class="now-ui-icons text_caps-small"></i>
