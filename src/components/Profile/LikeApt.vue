@@ -82,13 +82,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(apt, ind) in likeAptList" :key="ind">
+              <tr
+                @click="moveDetail(apt.aptCode)"
+                v-for="(apt, ind) in likeAptList"
+                :key="ind"
+              >
                 <td>{{ ind + 1 }}</td>
                 <td>{{ apt.aptName }}</td>
                 <td>
                   {{ apt.dealYear }}년 {{ apt.dealMonth }}월 {{ apt.dealDay }}일
                 </td>
-                <td>{{ getWon(apt.dealAmout) }}</td>
+                <td>{{ getWon(apt.recentPrice) }}</td>
                 <td>{{ apt.area }}</td>
                 <td>{{ apt.floor }}층</td>
               </tr>
@@ -143,6 +147,9 @@ export default {
           !this.descSort ? "오름차순" : "내림차순"
         }으로 정렬되었습니다.`,
       });
+    },
+    moveDetail(aptcode) {
+      this.$router.push("/apt/detail/" + aptcode);
     },
   },
 };

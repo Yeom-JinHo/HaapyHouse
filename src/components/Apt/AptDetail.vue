@@ -1,5 +1,16 @@
 <template>
   <div class="container">
+    <div class="detail-header">
+      <div></div>
+      <h1>{{ aptDealList.length > 0 ? aptDealList[0].aptName : "" }}</h1>
+      <img
+        v-if="isLike"
+        @click="toggleLike()"
+        src="/img/heart-fill.svg"
+        alt=""
+      />
+      <img v-else @click="toggleLike()" src="/img/heart-empty.svg" alt="" />
+    </div>
     <div class="card col-sm-12 mt-1">
       <div class="card-body">
         <table class="table mt-2">
@@ -101,7 +112,8 @@
 
 <script>
 import aptApi from "@/apis/aptApi.js";
-import { mapMutations } from "vuex";
+import profileApi from "@/apis/profileApi.js";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   data() {
@@ -109,6 +121,7 @@ export default {
       aptDealList: [],
       sortedType: "dealDate",
       descSort: true,
+      isLike: false,
     };
   },
   async created() {
@@ -128,10 +141,17 @@ export default {
         };
       });
       this.aptDealList = apts;
+      if (this.userInfo) {
+        await this.getIsLike();
+      }
     }
   },
   methods: {
-    ...mapMutations("msgStore", ["SET_INFO_MSG", "SET_SUCCESS_MSG"]),
+    ...mapMutations("msgStore", [
+      "SET_WARNING_MSG",
+      "SET_INFO_MSG",
+      "SET_SUCCESS_MSG",
+    ]),
     sort(type) {
       if (type == this.sortedType) {
         this.descSort = !this.descSort;
@@ -176,8 +196,65 @@ export default {
         return price + "만원";
       }
     },
+    async toggleLike() {
+      if (!this.userInfo) {
+        this.SET_WARNING_MSG({
+          visible: true,
+          msg: "로그인을 먼저 진행해주세요",
+        });
+        return;
+      }
+      let res;
+      if (!this.isLike) {
+        res = await profileApi.post("/apt/regist", {
+          userId: this.userInfo.userId,
+          socialType: this.userInfo.socialType,
+          aptCode: this.$route.params.aptCode,
+        });
+        if (res.status == 200) {
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: "관심 매물 등록이 완료되었습니다.",
+          });
+        }
+      } else {
+        res = await profileApi.delete(
+          `/apt/?userId=${this.userInfo.userId}&socialType=${this.userInfo.socialType}&aptCode=${this.$route.params.aptCode}`
+        );
+        if (res.status == 200) {
+          this.SET_SUCCESS_MSG({
+            visible: true,
+            msg: "관심 매물 삭제가완료되었습니다.",
+          });
+        }
+      }
+      this.isLike = !this.isLike;
+    },
+    async getIsLike() {
+      const likeRes = await profileApi.get(
+        `/apt/check?aptCode=${this.$route.params.aptCode}&userId=${this.userInfo.userId}&socialType=${this.userInfo.socialType}`
+      );
+      this.isLike = likeRes.data;
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userInfo"]),
   },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 50px;
+
+  h1 {
+    margin: 0;
+  }
+  img {
+    width: 40px;
+  }
+}
+</style>
