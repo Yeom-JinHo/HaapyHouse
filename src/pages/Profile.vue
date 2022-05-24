@@ -13,7 +13,6 @@
       <div class="container" v-if="userInfo">
         <div class="content" id="profile-set">
           <div></div>
-
           <img
             v-if="!isModify"
             @click="modifyData"
@@ -21,7 +20,6 @@
             src="img/modifyBtn.svg"
             alt="회원정보수정"
           />
-
           <img
             v-else
             @click="modifyData"
@@ -61,18 +59,28 @@
           </div>
 
           <p class="category">{{ userInfo.joinDate }}</p>
-          <div class="content">
-            <div class="social-description">
-              <h2>26</h2>
-              <p>Stars</p>
+          <div class="content myAct">
+            <div @click="changeView('Apt')" class="social-description">
+              <h2 :class="{ isSelected: selected == 'Apt' }">
+                {{ likeAptList.length }}
+              </h2>
+              <p :class="{ isSelected: selected == 'Apt' }">관심 매물</p>
             </div>
-            <div class="social-description">
-              <h2>26</h2>
-              <p>Comments</p>
+            <div @click="changeView('Notice')" class="social-description">
+              <h2 :class="{ isSelected: selected == 'Notice' }">
+                {{ myNotices.length }}
+              </h2>
+              <p :class="{ isSelected: selected == 'Notice' }">
+                내가 작성한 글
+              </p>
             </div>
-            <div class="social-description">
-              <h2>48</h2>
-              <p>Bookmarks</p>
+            <div @click="changeView('Comment')" class="social-description">
+              <h2 :class="{ isSelected: selected == 'Comment' }">
+                {{ myComments.length }}
+              </h2>
+              <p :class="{ isSelected: selected == 'Comment' }">
+                내가 작성한 댓글
+              </p>
             </div>
           </div>
         </div>
@@ -94,112 +102,21 @@
         </div>
       </div>
     </div>
-    <div class="section" id="custom-section">
-      <div class="container">
-        <div class="card col-sm-12 mt-1">
-          <div class="card-body">
-            <table class="table mt-2">
-              <colgroup>
-                <col width="100" />
-                <col width="150" />
-                <col width="*" />
-                <col width="120" />
-                <col width="120" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>번호</th>
-                  <th>아파트이름</th>
-                  <th
-                    :class="{ sorted: sortedType == 'dealDate' }"
-                    @click="sort('dealDate')"
-                  >
-                    거래일자
-                    <img
-                      :class="{ descSort: !descSort }"
-                      src="/img/up.svg"
-                      alt=""
-                    />
-                    <img
-                      :class="{ descSort: descSort }"
-                      src="/img/down.svg"
-                      alt=""
-                    />
-                  </th>
-                  <th
-                    :class="{ sorted: sortedType == 'dealAmout' }"
-                    @click="sort('dealAmout')"
-                  >
-                    거래금액
-                    <img
-                      :class="{ descSort: !descSort }"
-                      src="/img/up.svg"
-                      alt=""
-                    />
-                    <img
-                      :class="{ descSort: descSort }"
-                      src="/img/down.svg"
-                      alt=""
-                    />
-                  </th>
-                  <th
-                    :class="{ sorted: sortedType == 'area' }"
-                    @click="sort('area')"
-                  >
-                    면적
-                    <img
-                      :class="{ descSort: !descSort }"
-                      src="/img/up.svg"
-                      alt=""
-                    />
-                    <img
-                      :class="{ descSort: descSort }"
-                      src="/img/down.svg"
-                      alt=""
-                    />
-                  </th>
-                  <th
-                    :class="{ sorted: sortedType == 'floor' }"
-                    @click="sort('floor')"
-                  >
-                    층수
-                    <img
-                      :class="{ descSort: !descSort }"
-                      src="/img/up.svg"
-                      alt=""
-                    />
-                    <img
-                      :class="{ descSort: descSort }"
-                      src="/img/down.svg"
-                      alt=""
-                    />
-                  </th>
-                </tr>
-              </thead>
-              <!-- <tbody id="searchResult"></tbody> -->
-              <tbody>
-                <tr v-for="(apt, ind) in aptDealList" :key="ind">
-                  <td>{{ ind + 1 }}</td>
-                  <td>{{ apt.aptName }}</td>
-                  <td>
-                    {{ apt.dealYear }}년 {{ apt.dealMonth }}월
-                    {{ apt.dealDay }}일
-                  </td>
-                  <td>{{ getWon(apt.dealAmout) }}</td>
-                  <td>{{ apt.area }}</td>
-                  <td>{{ apt.floor }}층</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <like-apt v-if="selected == 'Apt'" :likeAptList="likeAptList"></like-apt>
+    <my-comment
+      v-if="selected == 'Comment'"
+      :myComments="myComments"
+    ></my-comment>
+    <my-notice v-if="selected == 'Notice'" :myNotices="myNotices"></my-notice>
   </div>
 </template>
 <script>
 import { mapActions, mapMutations, mapState } from "vuex";
+import LikeApt from "@/components/Profile/LikeApt.vue";
+import MyComment from "@/components/Profile/MyComment.vue";
+import MyNotice from "@/components/Profile/MyNotice.vue";
 import userApi from "@/apis/userApi.js";
+import profileApi from "@/apis/profileApi.js";
 
 export default {
   name: "profile",
@@ -211,10 +128,22 @@ export default {
       m_pwd: "",
       m_chkPwd: "",
       m_nickName: "",
+      selected: "Apt",
+      likeAptList: [],
+      myNotices: [],
+      myComments: [],
     };
   },
-  components: {},
-  created() {},
+  components: {
+    LikeApt,
+    MyComment,
+    MyNotice,
+  },
+  async created() {
+    this.getLikeApt();
+    this.getMyNotice();
+    this.getMyComment();
+  },
   computed: {
     ...mapState("userStore", ["userInfo"]),
   },
@@ -225,6 +154,27 @@ export default {
       "SET_SUCCESS_MSG",
       "SET_DANGER_MSG",
     ]),
+    async getLikeApt() {
+      const res = await profileApi.post("/apt", {
+        userId: this.userInfo.userId,
+        socialType: this.userInfo.socialType,
+      });
+      this.likeAptList = res.data;
+    },
+    async getMyNotice() {
+      const res = await profileApi.post("/notice", {
+        userId: this.userInfo.userId,
+        socialType: this.userInfo.socialType,
+      });
+      this.myNotices = res.data;
+    },
+    async getMyComment() {
+      const res = await profileApi.post("/comment", {
+        userId: this.userInfo.userId,
+        socialType: this.userInfo.socialType,
+      });
+      this.myComments = res.data;
+    },
     modifyData() {
       this.initSetData();
       this.isModify = !this.isModify;
@@ -277,6 +227,9 @@ export default {
           });
         }
       }
+    },
+    changeView(val) {
+      this.selected = val;
     },
   },
 };
@@ -353,5 +306,17 @@ export default {
 #btn--list:hover {
   color: white;
   background-color: blue;
+}
+
+.myAct {
+  color: gray;
+}
+.myAct:hover {
+  cursor: pointer;
+}
+
+.isSelected {
+  color: white;
+  font-weight: 900;
 }
 </style>
