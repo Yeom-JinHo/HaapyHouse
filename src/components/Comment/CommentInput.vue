@@ -1,6 +1,6 @@
 <template>
   <div class="new-comment">
-    <div class="new-comment__userid">{{ userInfo.nickName }}</div>
+    <div class="new-comment__userid">{{ userInfo && userInfo.nickName }}</div>
     <div class="input-container">
       <input
         class="new-comment__input"
@@ -41,6 +41,10 @@ export default {
       "SET_DANGER_MSG",
     ]),
     async registComment() {
+      if (!this.userInfo) {
+        this.SET_WARNING_MSG({ visible: true, msg: "로그인을 먼저해주세요" });
+        return;
+      }
       if (!this.comment) {
         this.SET_WARNING_MSG({ visible: true, msg: "댓글을 입력해주세요" });
         this.$refs.newCommentInput.focus();
@@ -59,7 +63,6 @@ export default {
       const res = await commentApi.post("", newComment);
       if (res.status == 200) {
         this.SET_SUCCESS_MSG({ visible: true, msg: "댓글이 등록되었습니다." });
-        this.isModify = false;
       } else {
         this.SET_DANGER_MSG({
           visible: true,

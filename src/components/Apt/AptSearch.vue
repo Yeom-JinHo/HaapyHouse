@@ -84,7 +84,7 @@
               </th>
               <th class="text-center">주소</th>
               <th
-                :class="{ sorted: sortedType == 'buildYear', arrow }"
+                :class="{ sorted: sortedType == 'buildYear' }"
                 @click="sort('buildYear')"
               >
                 건축연도
