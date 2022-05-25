@@ -7,7 +7,9 @@
       <div
         class="first"
         data-aos="fade-up"
-        @click="moveDetail(rankingList[0].aptCode)"
+        @click="
+          moveDetail(rankingList.length > 0 ? rankingList[0].aptCode : '')
+        "
       >
         <div class="tri">
           <div class="triangle"></div>
@@ -15,18 +17,26 @@
         </div>
         <div class="title">
           <span class="aptName">{{
-            rankingList.length > 0 ? rankingList[0].aptName : ""
+            rankingList.length > 0
+              ? rankingList[0].aptName
+              : "아직 순위권 데이터가 없어요!"
           }}</span>
           <i
-            v-if="rankingList[0].rankChange > 0"
+            v-if="
+              rankingList.length > 0 ? rankingList[0].rankChange > 0 : false
+            "
             class="now-ui-icons arrows-1_minimal-up"
           ></i>
           <i
-            v-else-if="rankingList[0].rankChange < 0"
+            v-else-if="
+              rankingList.length > 0 ? rankingList[0].rankChange < 0 : false
+            "
             class="now-ui-icons arrows-1_minimal-down"
           ></i>
           <i v-else class="now-ui-icons ui-1_simple-delete"></i>
-          <span class="count">{{ rankingList[0].rankChange }}</span>
+          <span class="count">{{
+            rankingList.length > 0 ? rankingList[0].rankChange : ""
+          }}</span>
         </div>
       </div>
 
@@ -145,8 +155,8 @@ export default {
 .first .title {
   padding: 0;
   padding-left: 1.5vw;
-  height: 3vh;
-  font-size: 2vh;
+  height: 3.5rem;
+  font-size: 3rem;
   background: rgba(0, 0, 0, 0.4);
 }
 
