@@ -36,6 +36,15 @@
               </div>
               <div class="input-group">
                 <input
+                  type="password"
+                  class="form-control"
+                  placeholder="비밀번호를 한번 더 입력해주세요.."
+                  v-model="chkPassword"
+                  ref="chkPassword"
+                />
+              </div>
+              <div class="input-group">
+                <input
                   type="text"
                   class="form-control"
                   placeholder="닉네임을 입력해주세요.."
@@ -88,6 +97,7 @@ export default {
     return {
       id: "",
       password: "",
+      chkPassword: "",
       nickname: "",
       validId: "",
     };
@@ -132,6 +142,7 @@ export default {
     async joinUser() {
       let err = true;
       let msg = "";
+      const passwordReg = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
       !this.id &&
         ((msg = "아이디를 입력해주세요"), //
         (err = false),
@@ -146,6 +157,21 @@ export default {
         ((msg = "비밀번호를 입력해주세요"),
         (err = false), //
         this.$refs.password.focus());
+      err &&
+        !this.password &&
+        ((msg = "비밀번호를 입력해주세요"),
+        (err = false), //
+        this.$refs.password.focus());
+      err &&
+        !passwordReg.test(this.password) &&
+        ((msg = "비밀번호를 8자이상 숫자 대소문자를 포함해주세요"),
+        (err = false), //
+        this.$refs.password.focus());
+      err &&
+        this.password != this.chkPassword &&
+        ((msg = "비밀번호 두개가 일치하지 않아요."),
+        (err = false), //
+        this.$refs.chkPassword.focus());
       if (!err) {
         this.SET_WARNING_MSG({ visible: true, msg });
       } else {
