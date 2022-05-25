@@ -150,7 +150,6 @@ export default {
           socialtype: this.userInfo.socialType,
           notice_no: this.comment.notice_no,
         };
-        console.log(newComment, this.comment);
         const res = await commentApi.put("", newComment);
         if (res.status == 200) {
           this.SET_SUCCESS_MSG({

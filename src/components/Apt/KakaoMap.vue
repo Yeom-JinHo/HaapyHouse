@@ -1,7 +1,7 @@
 <template>
   <div class="map_wrap">
     <div id="map" style="width: 100%; height: 500px"></div>
-    <ul id="category">
+    <!-- <ul id="category">
       <li id="BK9" data-order="0">
         <span class="category_bg bank"></span>
         은행
@@ -26,7 +26,7 @@
         <span class="category_bg store"></span>
         편의점
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
@@ -46,7 +46,6 @@ export default {
   },
   watch: {
     aptList: function () {
-      console.log(this.aptList);
       this.displayMarker(this.aptList);
     },
   },
@@ -121,8 +120,6 @@ export default {
       let id = e.currentTarget.getAttribute("id");
       let className = e.currentTarget.getAttribute("class");
 
-      console.log("onClickCategory", id, className);
-
       this.placeOverlay.setMap(null);
 
       if (className === "on") {
@@ -139,7 +136,6 @@ export default {
       let category = document.getElementById("category"),
         children = category.children,
         i;
-      console.log("changeCategoryClass", el);
       for (i = 0; i < children.length; i++) {
         // children[i].setAttribute("class", "");
         children[i].className = "";
@@ -157,8 +153,6 @@ export default {
         .getElementById(this.currCategory)
         .getAttribute("data-order");
 
-      console.log("displayPlace Order : ", order, places);
-
       for (let i = 0; i < places.length; i++) {
         // 마커를 생성하고 지도에 표시합니다
         let marker = this.addMarker(
@@ -175,7 +169,6 @@ export default {
       }
     },
     addMarker(position, order) {
-      console.log("addMarker", position, order);
       let imageSrc =
         "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png"; // 마커 이미지 url, 스프라이트 이미지를 씁니다
       let imageSize = new kakao.maps.Size(27, 28); // 마커 이미지의 크기
@@ -216,7 +209,6 @@ export default {
       this.ps.categorySearch(this.currCategory, this.placesSearchCB);
     },
     placesSearchCB(data, status, pagination) {
-      console.log("palceSearchCB", data);
       if (status === kakao.maps.services.Status.OK) {
         // 정상적으로 검색이 완료됐으면 지도에 마커를 표출합니다
         this.displayPlaces(data);
@@ -227,7 +219,6 @@ export default {
       }
     },
     removePlaceMarker() {
-      console.log("RemovePlace");
       for (let i = 0; i < this.placeMarkers.length; i++) {
         this.placeMarkers[i].setMap(null);
       }
@@ -236,7 +227,6 @@ export default {
 
     /// 화면 표시
     displayMarker(markerPositions) {
-      console.log("DISPLAY MARKER", markerPositions);
       markerPositions = markerPositions.map((item) => [item.lat, item.lng]);
       // 마커 초기화
       this.removeAllMarker();
@@ -244,8 +234,6 @@ export default {
       const positions = markerPositions.map(
         (position) => new kakao.maps.LatLng(...position)
       );
-
-      console.log("DisPlay MArker", positions);
       if (positions.length > 0) {
         this.markers = positions.map(
           (position) =>

@@ -211,7 +211,6 @@ export default {
     },
     async setDong() {
       const res = await aptApi.get("/dong?gugun=" + this.gugunCode);
-      console.log(res.data);
       const dongs = res.data.filter((apt) => apt.dongName != null);
       this.dongArr = dongs;
       this.dongData = this.dongCode || null;
@@ -244,7 +243,6 @@ export default {
         this.descSort = true;
       }
       this.sortedType = type;
-      console.log(type, this.sortedType, this.descSort);
       let sortOption = (a, b) => {
         let result = a[type] > b[type] ? 1 : -1;
         if (this.descSort) return result * -1;

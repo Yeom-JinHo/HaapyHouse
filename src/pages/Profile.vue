@@ -180,7 +180,6 @@ export default {
       this.isModify = !this.isModify;
     },
     initSetData() {
-      console.log("SET", this.userInfo);
       this.m_userId = this.userInfo.userId;
       // this.m_pwd = this.userInfo.userPwd;
       // this.m_chkPwd=this.userInfo.userPwd;
@@ -207,12 +206,10 @@ export default {
           userPwd: this.m_pwd,
           nickName: this.m_nickName,
         };
-        console.log(newUser);
         const res = await userApi.put(
           "/update/" + this.userInfo.userId,
           newUser
         );
-        console.log(res);
         if (res.status == 200) {
           this.SET_SUCCESS_MSG({
             visible: true,

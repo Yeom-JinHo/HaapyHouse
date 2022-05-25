@@ -72,10 +72,8 @@ export default {
   async created() {
     try {
       const res = await boardApi.get(`?no=${this.$route.params.no}`);
-      console.log("GET_DETAIL", res.data);
       if (res.status == 200) {
         this.board = { ...res.data[0] };
-        console.log(this.board);
       } else if (res.status == 204) {
         this.$router.push("/board");
         this.SET_DANGER_MSG({
@@ -90,7 +88,10 @@ export default {
         });
       }
     } catch (e) {
-      console.log(e);
+      this.SET_DANGER_MSG({
+        visible: true,
+        msg: "해당 글이 조회하는데 실패하였습니다.",
+      });
     }
   },
   methods: {
@@ -98,7 +99,6 @@ export default {
     async deleteBoard() {
       try {
         const res = await boardApi.delete("/?no=" + this.board.no);
-        console.log(res);
         if (res.status == 200) {
           this.$router.push("/board");
           this.SET_SUCCESS_MSG({
@@ -112,7 +112,10 @@ export default {
           });
         }
       } catch (e) {
-        console.log(e);
+        this.SET_DANGER_MSG({
+          visible: true,
+          msg: "글을 삭제하는데 실패하였습니다.",
+        });
       }
     },
     moveModifiy() {

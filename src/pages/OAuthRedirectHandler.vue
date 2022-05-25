@@ -35,7 +35,6 @@ export default {
     async kakao() {
       const ACCESS_TOKEN = await this.getKakaoAccessToken();
       const kakaoUserInfo = await this.getKakaoInfo(ACCESS_TOKEN);
-      console.log(kakaoUserInfo);
       const result = await this.socialLogin({
         userId: kakaoUserInfo.id,
         nickName: kakaoUserInfo.kakao_account.profile.nickname,
@@ -54,7 +53,6 @@ export default {
         },
       };
       const res = await axios.post(requestURL, config);
-      console.log("GET_OAUTH_CODE", res);
       return res.data.access_token;
     },
     async getKakaoInfo(ACCESS_TOKEN) {
@@ -63,14 +61,11 @@ export default {
       const res = await window.Kakao.API.request({
         url: "/v2/user/me",
       });
-      console.log("GET_KAKAO_INFO", res);
-
       return res;
     },
     async naver() {
       const ACCESS_TOKEN = await this.getNaverAccessToken();
       const NaverUserInfo = await this.getNaverInfo(ACCESS_TOKEN);
-      console.log(NaverUserInfo);
       const result = await this.socialLogin({
         userId: NaverUserInfo.id,
         nickName: NaverUserInfo.nickname,
@@ -88,11 +83,9 @@ export default {
         },
       };
       const res = await axios.post(requestURL, config);
-      console.log("GET_NAVER_ACCE", res);
       return res.data.access_token;
     },
     async getNaverInfo(ACCESS_TOKEN) {
-      console.log("NAVER_INFO", ACCESS_TOKEN);
       const config = {
         headers: {
           Authorization: `Bearer ${ACCESS_TOKEN}`,
@@ -100,14 +93,11 @@ export default {
       };
       const res = await axios.get("/v1/nid/me", config);
 
-      console.log("GET_Naver_INFO", res);
-
       return res.data.response;
     },
   },
   async mounted() {
     const socialType = this.$route.params.socialType;
-    console.log(socialType);
     if (socialType == "kakao") {
       this.kakao();
     } else if (socialType == "naver") {

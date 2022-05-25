@@ -71,13 +71,11 @@ export default {
   },
   async created() {
     const res = await axios.get("http://localhost:9999/count/search");
-    console.log("ranking", res);
     this.rankingList = res.data;
   },
   methods: {
     async test() {
       const res = await axios.get("http://localhost:9999/count/update");
-      console.log("update", res);
       this.rankingList = res.data;
     },
     moveDetail(aptcode) {

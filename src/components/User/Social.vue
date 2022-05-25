@@ -44,21 +44,18 @@ export default {
       document.getElementsByTagName("head")[0].appendChild(scriptEl);
     },
     startKakao() {
-      console.log(process.env.VUE_APP_KAKAO_LOGIN_API_KEY);
       const REST_API_KEY = process.env.VUE_APP_KAKAO_LOGIN_API_KEY;
       const REDIRECT_URI = `http://localhost:8080/oauth/kakao`;
       const requestURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
       window.location.href = requestURL;
     },
     startNaver() {
-      console.log(process.env.VUE_APP_NAVER_API_KEY);
       const API_KEY = process.env.VUE_APP_NAVER_API_KEY;
       const REDIRECT_URI = `http://localhost:8080/oauth/naver`;
       const requestURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&state=1234`;
       window.location.href = requestURL;
     },
     async startGoogle(googleUser) {
-      console.log(jwt_decode(googleUser.credential));
       const googleUserInfo = jwt_decode(googleUser.credential);
       const type = await this.socialLogin({
         userId: googleUserInfo.email,

@@ -18,7 +18,6 @@ export default {
   props: ["boards", "startInd"],
   methods: {
     moveDetail: function (board) {
-      // console.log(board);
       this.$router.push("/board/detail/" + board.no);
     },
   },

@@ -59,7 +59,6 @@ export default {
         commentGroup: this.commentgroup,
         socialtype: this.userInfo.socialType,
       };
-      console.log("COMMENT_REIGST", this.commentdepth, newComment);
       const res = await commentApi.post("", newComment);
       if (res.status == 200) {
         this.SET_SUCCESS_MSG({ visible: true, msg: "댓글이 등록되었습니다." });

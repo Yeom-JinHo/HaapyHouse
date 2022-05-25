@@ -15,7 +15,6 @@ const commentStore = {
   },
   mutations: {
     SET_COMMENT_LIST(state, newCommentList) {
-      console.log("com _ store", newCommentList);
       state.commentList = newCommentList;
     },
   },

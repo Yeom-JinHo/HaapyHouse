@@ -128,7 +128,6 @@ export default {
     const res = await aptApi.get(
       "/apt/deal/?aptCode=" + this.$route.params.aptCode
     );
-    console.log(res.data);
     if (res.status == 200) {
       this.SET_SUCCESS_MSG({
         visible: true,

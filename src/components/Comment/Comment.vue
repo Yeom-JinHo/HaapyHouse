@@ -38,13 +38,10 @@ export default {
   async created() {
     try {
       const res = await commentApi.get(`${this.$route.params.no}`);
-      console.log("GET_COMMENT:", res);
       if (res.status == 200) {
         this.SET_COMMENT_LIST([...res.data]);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   },
 };
 </script>

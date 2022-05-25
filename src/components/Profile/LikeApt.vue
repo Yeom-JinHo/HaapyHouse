@@ -134,7 +134,6 @@ export default {
         this.descSort = true;
       }
       this.sortedType = type;
-      console.log(type, this.sortedType, this.descSort);
       let sortOption = (a, b) => {
         let result = a[type] > b[type] ? 1 : -1;
         if (this.descSort) return result * -1;

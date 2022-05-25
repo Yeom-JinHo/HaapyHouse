@@ -123,7 +123,6 @@ export default {
         const res = await userApi.get(
           "/idCheck?userId=" + this.id + "&socialType=general"
         );
-        console.log(res);
         if (res.status == 200) {
           this.SET_SUCCESS_MSG({
             visible: true,
@@ -132,7 +131,6 @@ export default {
           this.validId = this.id;
         }
       } catch (e) {
-        console.log(e);
         this.SET_WARNING_MSG({
           visible: true,
           msg: "이미 사용중인 아이디입니다.",
@@ -181,7 +179,6 @@ export default {
           nickName: this.nickname,
           socialType: "general",
         });
-        console.log("join 후 isLogin 상태", this.isLogin);
         if (this.isLogin) {
           await this.getUserInfo("general");
           this.$router.push("/");
@@ -196,7 +193,6 @@ export default {
           });
         }
       }
-      console.log("JOINUSE END__");
     },
   },
 };

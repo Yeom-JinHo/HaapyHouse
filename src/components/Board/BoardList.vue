@@ -92,10 +92,8 @@ export default {
         params += this.searchVal;
         this.SET_SUCCESS_MSG({ visible: false });
       }
-      console.log(params);
       try {
         const res = await boardApi.get(params);
-        // console.log(res);
         if (res.status == 200) {
           this.boards = res.data.reverse();
           !this.successMsg.visible &&
@@ -103,7 +101,6 @@ export default {
               visible: true,
               msg: `검색결과가 ${this.boards.length}건 있어요!`,
             });
-          console.log(this.boards);
         } else if (res.status == 204) {
           this.boards = [];
           this.SET_INFO_MSG({
