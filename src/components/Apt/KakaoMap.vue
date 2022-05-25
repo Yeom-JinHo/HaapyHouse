@@ -1,7 +1,7 @@
 <template>
   <div class="map_wrap">
     <div id="map" style="width: 100%; height: 500px"></div>
-    <ul id="category">
+    <!-- <ul id="category">
       <li id="BK9" data-order="0">
         <span class="category_bg bank"></span>
         은행
@@ -26,7 +26,7 @@
         <span class="category_bg store"></span>
         편의점
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
