@@ -103,7 +103,7 @@ export default {
 }
 
 .ranking .first {
-  background-image: url("../../../public/img/dummyApt.jpg");
+  background-image: url("../../public/img/dummyApt.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 19vh;

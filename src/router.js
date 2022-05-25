@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./pages/Home.vue";
-import Tmp from "./pages/Tmp.vue";
 import Login from "./pages/Login.vue";
 import Profile from "./pages/Profile.vue";
 import Apt from "./pages/Apt.vue";
@@ -30,15 +29,6 @@ export default new Router({
       path: "/",
       name: "home",
       components: { default: Home, header: MainNavbar, footer: MainFooter },
-      props: {
-        header: { colorOnScroll: 400 },
-        footer: { backgroundColor: "black" },
-      },
-    },
-    {
-      path: "/tmp",
-      name: "tmp",
-      components: { default: Tmp, header: MainNavbar, footer: MainFooter },
       props: {
         header: { colorOnScroll: 400 },
         footer: { backgroundColor: "black" },

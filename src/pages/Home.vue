@@ -54,7 +54,7 @@
 import { Parallax } from "@/components";
 import CarouselSection from "./components/CarouselSection";
 import TeamInfo from "./components/TeamInfo";
-import Ranking from "./components/Ranking";
+import Ranking from "@/components/Ranking";
 export default {
   name: "index",
   bodyClass: "index-page",
