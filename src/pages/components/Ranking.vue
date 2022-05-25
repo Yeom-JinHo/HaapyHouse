@@ -4,13 +4,29 @@
       <div class="ranking-title">
         순위표 <button @click="test">순위 업데이트</button>
       </div>
-      <div class="first" data-aos="fade-up">
+      <div
+        class="first"
+        data-aos="fade-up"
+        @click="moveDetail(rankingList[0].aptCode)"
+      >
         <div class="tri">
           <div class="triangle"></div>
           <div class="tri-cnt">1</div>
         </div>
         <div class="title">
-          {{ rankingList.length > 0 ? rankingList[0].aptName : "" }}
+          <span class="aptName">{{
+            rankingList.length > 0 ? rankingList[0].aptName : ""
+          }}</span>
+          <i
+            v-if="rankingList[0].rankChange > 0"
+            class="now-ui-icons arrows-1_minimal-up"
+          ></i>
+          <i
+            v-else-if="rankingList[0].rankChange < 0"
+            class="now-ui-icons arrows-1_minimal-down"
+          ></i>
+          <i v-else class="now-ui-icons ui-1_simple-delete"></i>
+          <span class="count">{{ rankingList[0].rankChange }}</span>
         </div>
       </div>
 
@@ -21,6 +37,7 @@
           data-aos="fade-up"
           data-aos-easing="ease-out-back"
           data-aos-duration="1000"
+          @click="moveDetail(item.aptCode)"
         >
           <!-- <div class="left"> -->
           <span class="number">{{ index + 2 }}</span>
@@ -63,11 +80,14 @@ export default {
       console.log("update", res);
       this.rankingList = res.data;
     },
+    moveDetail(aptcode) {
+      this.$router.push("/apt/detail/" + aptcode);
+    },
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .ranking {
   width: 80%;
   height: 50vh;
@@ -92,6 +112,18 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .title {
+    display: flex;
+    align-items: center;
+  }
+  .aptName {
+    // flex-basis: 500px;
+    flex-basis: 620px;
+  }
+  i {
+    flex-basis: 110px;
+  }
 }
 
 .ranking i {

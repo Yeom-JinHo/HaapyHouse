@@ -145,6 +145,9 @@ export default {
         await this.getIsLike();
       }
     }
+    await aptApi.put(
+      "http://localhost:9999/count/visit?aptCode=" + this.$route.params.aptCode
+    );
   },
   methods: {
     ...mapMutations("msgStore", [
