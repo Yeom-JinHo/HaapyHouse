@@ -1,152 +1,124 @@
-# [Vue Now UI Kit](https://demos.creative-tim.com/vue-now-ui-kit) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=Vue%20Now%20UI%20Kit,%20a%20free%20Vue.js%20Bootstrap%204%20UI%20Kit%20%E2%9D%A4%EF%B8%8Fhttps://bit.ly/2OLFzVl%20%23bootstrap%20%23vue.js%20%23design%20%23developers%20%23freebie%20%20via%20%40CreativeTim&source=webclient)
+# 🏚 HappyHouse
 
+우리도 집을 살 수 있을까요 ??
 
+<a href="https://docs.google.com/spreadsheets/d/1xI6x8tR1MtWfgvk3urXf1aQnyEKxnyC6h6kf_ihnXZs/edit#gid=0">백로그</a>
 
-![version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/vue-now-ui-kit.svg?maxAge=22000)]() [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/vue-now-ui-kit.svg?maxAge=22000)]() [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)
+## 👨‍👦‍👦 팀소개
 
-![Product Gif](src/assets/github/product.gif)
+<div align="center">
 
-**[Vue Now UI Kit](http://demos.creative-tim.com/vue-now-ui-kit)** is a responsive Bootstrap 4 kit provided for free by Invision and Creative Tim. It is a beautiful cross-platform UI kit featuring over 50 elements and 3 templates.
+|    염진호    |   이민재    |   홍준표    |
+| :----------: | :---------: | :---------: |
+| Web Frontend | Web Backend | Web Backend |
 
-Vue Now UI Kit is one of the most popular UI Kits online, provided in PSD and Sketch formats by Invision. We wanted to find a way for developers worldwide to benefit from using it. So, in collaboration with Invision, we are launching the HTML version for it!
+</div>
 
-Now will help you create a clean and simple website that is a perfect fit for today's flat design. It is built using the 12 column grid system, with components designed to fit together perfectly. It makes use of bold colours, beautiful typography, clear photography and spacious arrangements.
+## 🛠 개발환경 및 라이브러리
 
-Create awesome, lifelike prototypes with InVision and Now so your users can experience and give feedback on your vision!
+<div align="center">
+  <img src="https://img.shields.io/badge/node-14.19.2-339933?logo=node.js"> 
+<img src="https://img.shields.io/badge/vue-2.6-4FC08D?logo=vue.js">
+<img src="https://img.shields.io/badge/scss--CC6699?logo=sass"> 
+<img src="https://img.shields.io/badge/mysql-8.0.28-4479A1?logo=mysql"> 
+<img src="https://img.shields.io/badge/spring-2.6.7-6DB33F?logo=spring">
 
-To get the PSD and Sketch files, please visit Invision (https://www.invisionapp.com/now).
+</div>
 
-Technologies used: 
-[Vue.js (2.5)](https://vuejs.org/) as framework for development.
-[Vue CLI 3](https://github.com/vuejs/vue-cli) for project scaffolding.
-[Vue Router](https://router.vuejs.org/) for handling routes.
-[Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/) as a general css foundation.
-[Element UI](http://element.eleme.io/#/en-US/component/installation) for some complex js components such as tooltips, datepickers, popovers.
+## 🔥 주요 기능
 
-We are very excited to share this ui kit with you and we look forward to hearing your feedback!
+1. 지역별 주변 아파트 검색
+2. 아파트 실거래과 현황 조회
+3. 아파트 관련 뉴스 확인
+4. 자유게시판, 무한 대댓글 가능
+5. 소셜 로그인
 
-You can find the Github Repo here.
+## 🖥 화면 구성
 
-## Table of Contents
+### 홈화면
 
-* [Versions](#versions)
-* [Demo](#demo)
-* [Quick Start](#quick-start)
-* [Documentation](#documentation)
-* [File Structure](#file-structure)
-* [Browser Support](#browser-support)
-* [Resources](#resources)
-* [Reporting Issues](#reporting-issues)
-* [Technical Support or Questions](#technical-support-or-questions)
-* [Licensing](#licensing)
-* [Useful Links](#useful-links)
+> 홈화면
+> ![스크린샷 2022-05-26 오후 3 21 51](https://user-images.githubusercontent.com/81306489/170429514-f72f6e9e-fdab-4251-a4ca-0f54b11123b2.png)
 
+> 랭킹시스템
+> ![스크린샷 2022-05-26 오후 3 22 20](https://user-images.githubusercontent.com/81306489/170429728-3493c604-0287-4aa0-b428-36772655f983.png)
 
-## Versions
+### 아파트조회
 
-[<img src="src/assets/github/html.png" width="60" height="60" />](https://www.creative-tim.com/product/now-ui-kit)
-[<img src="src/assets/github/vuejs.png" width="60" height="60" />](https://www.creative-tim.com/product/vue-now-ui-kit)
-[<img src="src/assets/github/angular.png" width="60" height="60" />](https://www.creative-tim.com/product/now-ui-kit-angular)
+> 아파트검색
+> ![스크린샷 2022-05-26 오후 3 22 26](https://user-images.githubusercontent.com/81306489/170429814-da9f6322-7144-4986-ae87-5859f34d7e16.png)
 
+### 뉴스
 
-| HTML | Vue | Angular |
-| --- | --- | --- |
-| [![Now Ui Kit HTML](https://s3.amazonaws.com/creativetim_bucket/products/56/original/opt_nuk_thumbnail.jpg?1494946669)](https://www.creative-tim.com/product/now-ui-kit) | [![Vue Now UI Kit ](https://s3.amazonaws.com/creativetim_bucket/products/94/original/opt_nuk_vue_thumbnail.jpg?1534755580)](https://www.creative-tim.com/product/vue-now-ui-kit) | [![Now Ui Kit Angular](https://s3.amazonaws.com/creativetim_bucket/products/77/original/opt_nuk_angular_thumbnail.jpg?1520507715)](https://www.creative-tim.com/product/now-ui-kit-angular)
+![스크린샷 2022-05-26 오후 3 22 33](https://user-images.githubusercontent.com/81306489/170429944-6daea609-5ba0-461b-a171-4f63fe4661fb.png)
 
-## Demo
+### 게시판
 
-| Components | Landing | Profile | Login |
-| --- | --- | --- | --- |
-| [![Components](src/assets/github/components.png)](https://demos.creative-tim.com/vue-now-ui-kit/#/) | [![Landing page](src/assets/github/landing.png)](https://demos.creative-tim.com/vue-now-ui-kit/#/landing) | [![Profile page ](src/assets/github/profile.png)](https://demos.creative-tim.com/vue-now-ui-kit/#/profile) | [![Login Page](src/assets/github/login.png)](https://demos.creative-tim.com/vue-now-ui-kit/#/login)
+![스크린샷 2022-05-26 오후 3 22 44](https://user-images.githubusercontent.com/81306489/170430096-d1791592-1f9e-40c0-88de-61cdf1caeed6.png)
 
-[View More](https://demos.creative-tim.com/vue-now-ui-kit).
+### 로그인
 
+![스크린샷 2022-05-26 오후 3 22 52](https://user-images.githubusercontent.com/81306489/170430111-218a8d6f-f7a2-4608-a270-056a16199eb1.png)
 
-## Quick start
+## 🥕 기술적인 고민들
 
-Quick start options:
+<detail>
+<summary>🍪 클라이언트단에 JWT 보관장소</summary>
 
-- Clone the repo: `git clone https://github.com/creativetimofficial/vue-now-ui-kit.git`.
-- [Download from Github](https://github.com/creativetimofficial/vue-now-ui-kit/archive/master.zip).
-- [Download from Creative Tim](https://www.creative-tim.com/product/vue-now-ui-kit).
-- Run `npm install` or `yarn install`
-- Run `npm run serve` to start a local development server
+- JWT 사용하게 됨으로써 클라이언트단에 토큰을 저장할 필요가 있었는데, 저희가
+  고려해본 저장소는 JS변수, 로컬스토리지, 세션 스토리지, 쿠키 입니다.
 
+- 첫번째 JS변수는 재사용성이 떨어짐으로 제외하였고 로컬스토리지는 브라우저가 꺼져도 유지되므로 제외하였습니다.
 
-## Documentation
-The documentation for Vue Now UI Kit is hosted at our [website](https://demos.creative-tim.com/vue-now-ui-kit/documentation/).
+- 최종적으로 세션스토리지, 쿠키가 남았는데 세션스토리지는 XSS에 취약하고, 쿠키는 CSRF에 취약하기에 무척 고민되었습니다. 결론적으로 말씀드리자면 완벽하게 대비하는것은 힘들겠지만, 두가지 공격을 대비하여 액세스 토큰 외로 리프레시 토큰을 발급받았습니다.
 
+- CSRF 공격을 대비한 **세션스토리지에 액세스토큰**을, XSS공격을 대비한 **Httponly 쿠키에 리프레시 토큰**을 담았습니다.
 
-## File Structure
+</detail>
 
-Within the download you'll find the following directories and files:
+<detail>
+<summary>🥇 랭킹 시스템 최적화</summary>
 
+- aptCode를 외래키로, count,precount,preRank,rankChange로 테이블을 구성하였습니다. 초기에는 다 0 값으로 초기화됩니다. 이후에 조회수가 증가하면 precount와 count의 차이만큼 랭킹이 정렬되고 이전 랭킹과 비교하여 순위변동까지 보여줄 수 있는 로직으로 구성하였습니다.
+
+```java
+        @Override
+	public void rankUpdate() throws Exception {
+		List<CountDto> list = countMapper.preCountList();
+
+		for (int i = 0; i < list.size(); i++) {
+			// ( preCount를 count로 업데이트 )
+			list.get(i).setPreCount(list.get(i).getCount());
+			// 현재 index - preRank 를 rankChange에 업데이트
+			list.get(i).setRankChange(-(i + 1 - list.get(i).getPreRank()));
+			// preRank는 현재 index로 업데이트
+			list.get(i).setPreRank(i + 1);
+		}
+		countMapper.rankUpdate(list);
+	}
 ```
-Vue Now Ui Kit
-|-- src
-        |-- App.vue
-        |-- main.js
-        |-- router.js
-        |-- assets
-        |   |-- fonts
-        |   |-- scss
-        |-- components
-        |-- directives
-        |-- layout
-        |-- pages
-        |-- plugins
+
+- 랭킹시스템 서비스단 로직입니다. 정렬 갱신 갱신으로 상당히 시간적으로 손해가 큰 로직인데 저희는 설계를 실시간성이 아니라 10분단위로 생각하였기에, 데이터가 4만건인 테이블에서 그렇게까지 시간소비가 안될 것이라고 예상하였습니다. 결과는 예상대로 맥os환경에서는 2분이나… 윈도우에서는 무려 7분이 걸렸습니다.
+
+```java
+
+	@Override
+	public void visitApt(String aptCode) throws Exception {
+		if(countMapper.checkApt(aptCode) == 1) {
+			countMapper.visitApt(aptCode);
+		}else {
+			List<CountDto> list = countMapper.countList();
+
+			Map<String, Object> map = new HashMap<>();
+			map.put("size", list.size()+1);
+			map.put("aptCode", aptCode);
+			countMapper.visitInsertApt(map);
+		}
+	}
 ```
 
-## Browser Support
+- aptCount를 아예 다비우고, 조회가 발생한 아파트만 DB에 밀어넣는 방식으로 문제를 해결하였습니다.
 
-At present, we officially aim to support the last two versions of the following browsers:
+- 저희 설계 상으로는 실시간성이아니라 문제는 해결되었지만, 만약 모든 아파트가 조회가 일정하게 되고, 그 안에 트래픽이 몰린다면, 어떻게 로직을 구성하면 좋을지 고민중입니다.
 
-<img src="src/assets/github/chrome.png" width="64" height="64"> <img src="src/assets/github/firefox.png" width="64" height="64"> <img src="src/assets/github/edge.png" width="64" height="64"> <img src="src/assets/github/safari.png" width="64" height="64"> <img src="src/assets/github/opera.png" width="64" height="64">
-
-
-## Resources
-- Demo: https://demos.creative-tim.com/vue-now-ui-kit
-- Download Page: https://www.creative-tim.com/product/vue-now-ui-kit
-- Documentation: https://demos.creative-tim.com/vue-now-ui-kit/documentation/
-- License Agreement: https://www.creative-tim.com/license
-- Support: https://www.creative-tim.com/contact-us
-- Issues: [Github Issues Page](https://github.com/creativetimofficial/vue-now-ui-kit/issues)
-- [Vue Now UI Dashboard PRO - For Dashboard development](https://www.creative-tim.com/product/vue-now-ui-dashboard-pro?ref=github-vue-nud-free)
-
-## Reporting Issues
-We use GitHub Issues as the official bug tracker for Vue Now UI Kit. Here are some advices for our users that want to report an issue:
-
-1. Make sure that you are using the latest version of the Vue Now UI Kit. Check the CHANGELOG from your ui kit on our [website](https://www.creative-tim.com/).
-2. Providing us reproducible steps for the issue will shorten the time it takes for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you encountered the issue might help.
-
-## Technical Support or Questions
-
-If you have questions or need help integrating the product please [contact us](https://www.creative-tim.com/contact-us) instead of opening an issue.
-
-## Licensing
-
-- Copyright 2018 Creative Tim (https://www.creative-tim.com)
-- Licensed under MIT (https://github.com/creativetimofficial/vue-now-ui-kit/blob/master/LICENSE.md)
-
-## Useful Links
-
-More products from Creative Tim: <https://www.creative-tim.com/products>
-
-Tutorials: <https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w>
-
-Freebies: <https://www.creative-tim.com/products>
-
-Affiliate Program (earn money): <https://www.creative-tim.com/affiliates/new>
-
-Social Media:
-
-Twitter: <https://twitter.com/CreativeTim>
-
-Facebook: <https://www.facebook.com/CreativeTim>
-
-Dribbble: <https://dribbble.com/creativetim>
-
-Google+: <https://plus.google.com/+CreativetimPage>
-
-Instagram: <https://instagram.com/creativetimofficial>
+</detail>
