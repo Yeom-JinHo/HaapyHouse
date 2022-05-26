@@ -38,31 +38,46 @@
 ### 홈화면
 
 > 홈화면
-> ![스크린샷 2022-05-26 오후 3 21 51](https://user-images.githubusercontent.com/81306489/170429514-f72f6e9e-fdab-4251-a4ca-0f54b11123b2.png)
+
+#### 👍 최강없는 최강 팀
+
+![스크린샷 2022-05-26 오후 3 21 51](https://user-images.githubusercontent.com/81306489/170429514-f72f6e9e-fdab-4251-a4ca-0f54b11123b2.png)
 
 > 랭킹시스템
-> ![스크린샷 2022-05-26 오후 3 22 20](https://user-images.githubusercontent.com/81306489/170429728-3493c604-0287-4aa0-b428-36772655f983.png)
 
-### 아파트조회
+#### 👍 10분단위의 조회수 랭킹 시스템
 
-> 아파트검색
-> ![스크린샷 2022-05-26 오후 3 22 26](https://user-images.githubusercontent.com/81306489/170429814-da9f6322-7144-4986-ae87-5859f34d7e16.png)
+![스크린샷 2022-05-26 오후 3 22 20](https://user-images.githubusercontent.com/81306489/170429728-3493c604-0287-4aa0-b428-36772655f983.png)
+
+### 아파트화면
+
+> 아파트조회
+
+### 👍 시도 구군 동 단위의 아파트 검색
+
+![스크린샷 2022-05-26 오후 3 22 26](https://user-images.githubusercontent.com/81306489/170429814-da9f6322-7144-4986-ae87-5859f34d7e16.png)
 
 ### 뉴스
+
+#### 👍 아파트 관련 기사들
 
 ![스크린샷 2022-05-26 오후 3 22 33](https://user-images.githubusercontent.com/81306489/170429944-6daea609-5ba0-461b-a171-4f63fe4661fb.png)
 
 ### 게시판
 
+#### 👍 게시글 CRUD, 무한대댓글
+
 ![스크린샷 2022-05-26 오후 3 22 44](https://user-images.githubusercontent.com/81306489/170430096-d1791592-1f9e-40c0-88de-61cdf1caeed6.png)
 
 ### 로그인
+
+#### 👍 소셜로그인 ( 네이버, 카카오, 구글 )
 
 ![스크린샷 2022-05-26 오후 3 22 52](https://user-images.githubusercontent.com/81306489/170430111-218a8d6f-f7a2-4608-a270-056a16199eb1.png)
 
 ## 🥕 기술적인 고민들
 
-<detail>
+<details>
 <summary>🍪 클라이언트단에 JWT 보관장소</summary>
 
 - JWT 사용하게 됨으로써 클라이언트단에 토큰을 저장할 필요가 있었는데, 저희가
@@ -74,9 +89,9 @@
 
 - CSRF 공격을 대비한 **세션스토리지에 액세스토큰**을, XSS공격을 대비한 **Httponly 쿠키에 리프레시 토큰**을 담았습니다.
 
-</detail>
+</details>
 
-<detail>
+<details>
 <summary>🥇 랭킹 시스템 최적화</summary>
 
 - aptCode를 외래키로, count,precount,preRank,rankChange로 테이블을 구성하였습니다. 초기에는 다 0 값으로 초기화됩니다. 이후에 조회수가 증가하면 precount와 count의 차이만큼 랭킹이 정렬되고 이전 랭킹과 비교하여 순위변동까지 보여줄 수 있는 로직으로 구성하였습니다.
@@ -121,4 +136,4 @@
 
 - 저희 설계 상으로는 실시간성이아니라 문제는 해결되었지만, 만약 모든 아파트가 조회가 일정하게 되고, 그 안에 트래픽이 몰린다면, 어떻게 로직을 구성하면 좋을지 고민중입니다.
 
-</detail>
+</details>
