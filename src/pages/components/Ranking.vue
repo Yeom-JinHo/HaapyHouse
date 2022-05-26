@@ -2,7 +2,8 @@
   <div class="container">
     <div class="ranking">
       <div class="ranking-title">
-        순위표 <button @click="test">순위 업데이트</button>
+        순위표
+        <!-- <button @click="test">순위 업데이트</button> -->
       </div>
       <div
         class="first"
