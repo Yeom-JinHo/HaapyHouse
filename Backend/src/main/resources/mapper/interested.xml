@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.InterestedAptMapper">
+
+	<select id="listComment" parameterType="InterestedAptDto"
+		resultType="CommentDto">
+		select * from comments
+		where userid = #{userId}
+		and socialtype = #{socialType}
+	</select>
+
+	<select id="listNotice" parameterType="InterestedAptDto"
+		resultType="NoticeDto">
+		select * from notice
+		where userid = #{userId}
+		and socialtype = #{socialType}
+	</select>
+
+
+	<select id="listApt" parameterType="InterestedAptDto"
+		resultType="InterestedAptDto">
+		select aptCode from interestedapt
+		where userid = #{userId}
+		and socialtype = #{socialType}
+	</select>
+
+	<select id="getApt" parameterType="InterestedAptDto"
+		resultType="InterestedAptDto">
+		select h.aptCode, h.apartmentName as aptName, h.buildYear,
+		h.dongCode, h.dong, h.jibun, h.lat, h.lng,
+		(select dealAmount from
+		housedeal where aptCode = h.aptCode and no = (select max(no) from
+		housedeal where aptCode = h.aptCode)) recentPrice
+		from houseinfo h
+		where h.aptCode = #{aptCode}
+	</select>
+
+	<insert id="registApt" parameterType="InterestedAptDto">
+		insert into
+		interestedapt(userid,socialtype,aptCode)
+		VALUES(#{userId},#{socialType},#{aptCode})
+	</insert>
+
+	<delete id="deleteApt" parameterType="Map">
+		delete from interestedapt
+		where aptCode=#{aptCode} and userid = #{userId}
+		and socialtype = #{socialType}
+	</delete>
+	
+	<select id="getCheck" parameterType="Map" resultType="Int">
+		select count(*) from interestedapt where aptCode=#{aptCode} and userid = #{userId}
+		and socialtype = #{socialType}
+	</select>
+</mapper>

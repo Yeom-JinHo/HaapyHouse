@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.happyhouse.model.mapper.CommentMapper">
+
+
+	<select id="list" resultType="CommentDto">
+	<![CDATA[
+		select comment_no, userid, nickName , comment, comment_time, notice_no, commentdepth , commentgroup , socialtype, deleted
+		from comments
+		where notice_no = #{notice_no}
+		order by comment_time
+		]]>
+	</select>
+
+
+	<insert id="create" parameterType="CommentDto">
+		insert into comments(
+			nickname, userid , comment, comment_time, notice_no , socialtype
+			<if test="commentDepth != null">, commentdepth </if>
+			<if test="commentGroup != null">, commentgroup </if>		
+			 
+		) values (
+			#{nickName},#{userId}, #{comment}, now(), #{notice_no} , #{socialtype}
+			<if test="commentDepth != null">,#{commentDepth} </if>
+			<if test="commentGroup != null">,#{commentGroup} </if>		  
+		)
+	</insert>
+	
+
+	<update id="modify" parameterType="CommentDto">
+		<![CDATA[
+		update comments
+		set comment = #{comment}
+		where comment_no = #{comment_no} and socialtype = #{socialtype}
+		]]>
+	</update>
+
+
+	<update id="delete" parameterType="CommentDto">
+		<![CDATA[
+			update comments 
+ 			set comment = "작성자의 요청으로 삭제된 댓글입니다" , userid = null , nickName = null , deleted = true
+			where comment_no = #{comment_no}
+		]]>
+	</update>
+
+<!-- 	<delete id="delete" parameterType="int"> -->
+<!-- 		delete -->
+<!-- 		from comments -->
+<!-- 		where comment_no = #{comment_no} -->
+<!-- 	</delete> -->
+	
+
+</mapper>
+

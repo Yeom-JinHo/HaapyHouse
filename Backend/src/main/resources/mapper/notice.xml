@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.NoticeMapper">
+	<select id="listNews" resultType="NewsDto">
+		select * from housenews;
+	</select>
+
+
+	<select id="searchAllNotice" resultType="map">
+		select * from notice;
+	</select>
+
+	<select id="searchByNickNameNotice" parameterType="string"
+		resultType="map">
+		select * from notice
+		where nickName=#{nickName};
+	</select>
+
+	<select id="searchByNoNotice" parameterType="int"
+		resultType="map">
+		select * from notice
+		where no=#{no};
+	</select>
+
+	<select id="searchByTitleNotice" parameterType="string"
+		resultType="map">
+		select * from notice
+		where title=#{title};
+	</select>
+
+	<insert id="registNotice" parameterType="NoticeDto">
+		insert into
+		notice(title,userId,socialType,nickName,description)
+		VALUES(#{title},#{userId},#{socialType},#{nickName},#{description})
+	</insert>
+	<update id="updateNotice" parameterType="NoticeDto">
+		update notice
+		set
+		title=#{title}, description=#{description}
+		where no=#{no}
+	</update>
+
+	<delete id="deleteNotice" parameterType="string">
+		delete from notice
+		where
+		no=#{no}
+	</delete>
+</mapper>

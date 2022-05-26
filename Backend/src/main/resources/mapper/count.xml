@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.CountMapper">
+	<select id="countList" resultType="CountDto">
+		select aptCode, count,
+		preCount, preRank, rankChange
+		from aptCount
+		order by preRank
+		limit 5
+	</select>
+	
+	<select id="countListByCount" resultType="CountDto">
+		select aptCode, count,
+		preCount, preRank, rankChange
+		from aptCount
+		order by (count - preCount)
+		desc
+	</select>
+	
+	<update id="rankUpdate" parameterType="list">
+		<foreach collection="list" item="item" separator=";" open=""
+			close=";">
+			update aptCount
+			set
+			count=#{item.count},preCount=#{item.preCount},
+			preRank=#{item.preRank}, rankChange=#{item.rankChange}
+			where
+			aptCode=#{item.aptCode}
+		</foreach>
+	</update>
+	
+	<update id="visitApt" parameterType="String">
+			update aptCount
+			set
+			count= count+1
+			where
+			aptCode=#{value}
+	</update>
+	
+</mapper>

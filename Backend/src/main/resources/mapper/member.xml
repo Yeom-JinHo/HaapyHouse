@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.ssafy.happyhouse.model.mapper.MemberMapper">
+
+	<select id="getAllUsers" resultType="memberDto">
+		select userid,
+		userpwd,nickName, email, date_format(joindate, '%y.%m.%d') joindate,
+		profileimg , socialtype
+		from ssafy_member
+		order by joindate desc;
+	</select>
+
+
+	<insert id="insertUser" parameterType="MemberDto">
+		insert into ssafy_member
+		(userid, userpwd, email, joindate , nickName, profileimg , socialtype)
+		values (#{userId}, #{userPwd}, #{email}, now(),#{nickName}
+		,#{profileImg} , #{socialType})
+	</insert>
+
+	<update id="updateUserPw" parameterType="MemberDto">
+		update ssafy_member
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">userpwd = #{userPwd},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="profileImg != null">profileimg = #{profileImg},</if>
+			<if test="nickName != null">nickName = #{nickName},</if>
+		</trim>
+		where userid = #{userId} and socialtype=#{socialType}
+	</update>
+
+	<delete id="deleteUser" parameterType="String">
+		delete from ssafy_member
+		where userid = #{userid}
+	</delete>
+
+
+	<select id="getUserByUserId" parameterType="Map"
+		resultType="memberdto">
+		select userid, userpwd, nickName, email,
+		date_format(joindate, '%y.%m.%d') joindate, profileimg,socialType
+		from
+		ssafy_member
+		where userid = #{userid} and socialtype = #{socialType}
+	</select>
+
+
+
+	<select id="login" parameterType="MemberDto"
+		resultType="MemberDto">
+		select nickName, userid, email
+		from ssafy_member
+		where userid
+		= #{userId} and userpwd = #{userPwd}
+	</select>
+
+
+	<select id="idCheck" parameterType="Map" resultType="int">
+		select
+		count(userid)
+		from ssafy_member
+		where userid = #{userId} and socialtype
+		= #{socialType}
+	</select>
+
+
+
+
+	<select id="getRefreshToken" parameterType="String"
+		resultType="String">
+		select refreshtoken
+		from ssafy_member
+		where userid =
+		#{userid}
+	</select>
+
+	<update id="saveRefreshToken" parameterType="Map">
+		update ssafy_member
+		set refreshtoken = #{refreshToken}
+		where userid = #{userId}
+	</update>
+
+	<update id="deleteRefreshToken" parameterType="Map">
+		update
+		ssafy_member
+		set refreshtoken = #{refreshToken, jdbcType=VARCHAR}
+		where
+		userid = #{userId}
+	</update>
+
+
+
+
+
+</mapper>
