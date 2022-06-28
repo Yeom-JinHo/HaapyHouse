@@ -8,9 +8,9 @@
 
 <div align="center">
 
-|    염진호    |   이민재    |   홍준표    |
-| :----------: | :---------: | :---------: |
-| Web Frontend | Web Backend | Web Backend |
+|    염진호    |   이민재    |  
+| :----------: | :---------: |
+| Web Frontend | Web Backend |
 
 </div>
 
